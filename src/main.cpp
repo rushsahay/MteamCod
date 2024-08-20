@@ -11,7 +11,6 @@
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
-
 using namespace vex;
 
 // A global instance of competition
