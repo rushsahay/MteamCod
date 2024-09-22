@@ -1,0 +1,7 @@
+build/
+include/
+.vscode/
+src/robot-config.cpp
+compile_commands.json
+makefile
+MteamCod.v5code
