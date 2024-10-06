@@ -18,7 +18,20 @@ using namespace vex;
 competition Competition;
 
 // define your global instances of motors and other devices here
-
+//left motors aren't inverted && have gear ratio of 18 to 1
+motor left1 = motor(PORT1,ratio18_1,false);
+motor left2 = motor(PORT2,ratio18_1,false);
+motor_group leftMotors = motor_group(left1,left2);
+//right motors are inverted and have gear ratio of 18 to 1
+motor right1 = motor(PORT3,ratio18_1,true); 
+motor right2 = motor(PORT4,ratio18_1,true);
+motor_group rightMotors = motor_group(right1,right2);
+drivetrain drive = drivetrain(leftMotors,rightMotors);
+//initialize the driver and operate(operator caused error) controllers
+controller driver = controller(primary);
+controller operate = controller(partner);
+/*Might be useful to consider putting these values in a constants file as done in frc to minimize the amount of 
+things needed to change when changing these values*/
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
