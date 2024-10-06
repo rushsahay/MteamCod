@@ -16,21 +16,9 @@ using namespace vex;
 
 // A global instance of competition
 competition Competition;
-
 // define your global instances of motors and other devices here
 //left motors aren't inverted && have gear ratio of 18 to 1
-motor left1 = motor(PORT1,ratio18_1,false);
-motor left2 = motor(PORT2,ratio18_1,false);
-motor left3 = motor(PORT3,ratio18_1,false);
-motor_group leftMotors = motor_group(left1,left2,left3);
-//right motors are inverted and have gear ratio of 18 to 1
-motor right1 = motor(PORT4,ratio18_1,true); 
-motor right2 = motor(PORT5,ratio18_1,true);
-motor right3 = motor(PORT6,ratio18_1,false);
-motor_group rightMotors = motor_group(right1,right2,right3);
-drivetrain drive = drivetrain(leftMotors,rightMotors);
-//initialize the driver and operate(operator caused error) controllers
-controller driver = controller(primary);
+
 /*Might be useful to consider putting these values in a constants file as done in frc to minimize the amount of 
 things needed to change when changing these values*/
 /*---------------------------------------------------------------------------*/
@@ -42,7 +30,18 @@ things needed to change when changing these values*/
 /*  function is only called once after the V5 has been powered on and        */
 /*  not every time that the robot is disabled.                               */
 /*---------------------------------------------------------------------------*/
-
+motor left1;
+motor left2;
+motor left3;
+motor_group leftMotors;
+motor right1;
+motor right2;
+motor right3;
+motor_group rightMotors;
+drivetrain drive;
+controller driver;
+digital_out piston;
+motor intake;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -76,9 +75,15 @@ void autonomous(void) {
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
-
+void grab(){
+    piston.set(true);
+    }
+  void release(){
+    piston.set(false);
+    }
 void usercontrol(void) {
   // User control code here, inside the loop
+    
   while (1) {
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -89,6 +94,12 @@ void usercontrol(void) {
     // update your motors, etc.
     // ........................................................................
     drive.arcade(driver.Axis3.value(),driver.Axis1.value());
+    if(driver.ButtonR2.pressing()){
+      intake.spin(directionType(fwd));
+    }
+    driver.ButtonB.pressed(grab);
+    driver.ButtonX.pressed(release);
+
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
@@ -99,11 +110,13 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
+  
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.
   pre_auton();
+  
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
