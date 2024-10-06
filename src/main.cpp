@@ -31,7 +31,6 @@ motor_group rightMotors = motor_group(right1,right2,right3);
 drivetrain drive = drivetrain(leftMotors,rightMotors);
 //initialize the driver and operate(operator caused error) controllers
 controller driver = controller(primary);
-controller operate = controller(partner);
 /*Might be useful to consider putting these values in a constants file as done in frc to minimize the amount of 
 things needed to change when changing these values*/
 /*---------------------------------------------------------------------------*/
@@ -89,7 +88,7 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-
+    drive.arcade(driver.Axis3.value(),driver.Axis1.value());
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
