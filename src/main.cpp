@@ -26,7 +26,7 @@ motor_group leftMotors = motor_group(left1,left2,left3);
 //right motors are inverted and have gear ratio of 18 to 1
 motor right1 = motor(PORT4,ratio18_1,true); 
 motor right2 = motor(PORT5,ratio18_1,true);
-motor right3 = motor(PORT6,ratio18_1,true);
+motor right3 = motor(PORT6,ratio18_1,false);
 motor_group rightMotors = motor_group(right1,right2,right3);
 drivetrain drive = drivetrain(leftMotors,rightMotors);
 //initialize the driver and operate(operator caused error) controllers
