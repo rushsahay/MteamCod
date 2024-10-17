@@ -42,6 +42,8 @@ drivetrain drive;
 controller driver;
 digital_out piston;
 motor intake;
+motor conveyor;
+motor_group contake;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
@@ -64,6 +66,18 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
+
+  // rightMotors.spin(fwd, 30, vex::percentUnits(100));
+  // leftMotors.spin(reverse, 30, vex::percentUnits(100));
+  drive.turn(left, 30, vex::velocityUnits(10));
+  drive.drive(fwd, 30, vex::velocityUnits(10));
+  drive.turn(right, 30, vex::velocityUnits(10));
+  // rightMotors.spin(reverse, 30, vex::percentUnits(100));
+  // leftMotors.spin(fwd, 30, vex::percentUnits(100));
+  drive.drive(fwd, 10, vex::velocityUnits(10));
+  contake.spin(fwd, 20, vex::velocityUnits(10));
+  drive.drive(reverse, 20, vex::velocityUnits(10));
+  contake.spin(fwd, 20, vex::velocityUnits(10));
 }
 
 /*---------------------------------------------------------------------------*/
@@ -76,11 +90,23 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 void grab(){
-    piston.set(true);
-    }
-  void release(){
+  if(piston.value()){
     piston.set(false);
-    }
+  }
+  else{
+    piston.set(true);
+  }
+}
+// void release(){
+//   piston.set(false);
+// }
+void forwardIntake(){
+  contake.spin(fwd);
+}
+void backwardIntake(){
+  contake.spin(reverse);
+}
+
 void usercontrol(void) {
   // User control code here, inside the loop
     
@@ -94,12 +120,9 @@ void usercontrol(void) {
     // update your motors, etc.
     // ........................................................................
     drive.arcade(driver.Axis3.value(),driver.Axis1.value());
-    if(driver.ButtonR2.pressing()){
-      intake.spin(directionType(fwd));
-    }
-    driver.ButtonB.pressed(grab);
-    driver.ButtonX.pressed(release);
-
+    driver.ButtonB.pressed(forwardIntake);
+    driver.ButtonX.pressed(backwardIntake);
+    driver.ButtonR1.pressed(grab);
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
