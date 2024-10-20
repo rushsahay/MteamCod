@@ -10,15 +10,13 @@
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // ---- END VEXCODE CONFIGURED DEVICES ----
-
 #include "vex.h"
+#include "robot-config.h"
 using namespace vex;
-
 // A global instance of competition
 competition Competition;
 // define your global instances of motors and other devices here
 //left motors aren't inverted && have gear ratio of 18 to 1
-
 /*Might be useful to consider putting these values in a constants file as done in frc to minimize the amount of 
 things needed to change when changing these values*/
 /*---------------------------------------------------------------------------*/
@@ -30,65 +28,29 @@ things needed to change when changing these values*/
 /*  function is only called once after the V5 has been powered on and        */
 /*  not every time that the robot is disabled.                               */
 /*---------------------------------------------------------------------------*/
-motor left1;
-motor left2;
-motor left3;
-motor_group leftMotors;
-motor right1;
-motor right2;
-motor right3;
-motor_group rightMotors;
-drivetrain drive;
-controller driver;
-digital_out piston;
-motor intake;
-motor conveyor;
-motor_group contake;
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
-void autonomous(void) {
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
-
-  // rightMotors.spin(fwd, 30, vex::percentUnits(100));
-  // leftMotors.spin(reverse, 30, vex::percentUnits(100));
-  drive.turn(left, 30, vex::velocityUnits(10));
-  drive.drive(fwd, 30, vex::velocityUnits(10));
-  drive.turn(right, 30, vex::velocityUnits(10));
-  // rightMotors.spin(reverse, 30, vex::percentUnits(100));
-  // leftMotors.spin(fwd, 30, vex::percentUnits(100));
-  drive.drive(fwd, 10, vex::velocityUnits(10));
-  contake.spin(fwd, 20, vex::velocityUnits(10));
-  drive.drive(reverse, 20, vex::velocityUnits(10));
-  contake.spin(fwd, 20, vex::velocityUnits(10));
+void forwardDrive(double pct){
+  leftMotors.spin(fwd, pct, vex::velocityUnits(rpm));
+  rightMotors.spin(fwd, pct, vex::velocityUnits(rpm));
+}
+void backwardDrive(double pct){
+  leftMotors.spin(reverse, pct, vex::velocityUnits(rpm));
+  rightMotors.spin(reverse, pct, vex::velocityUnits(rpm));
+}
+void turnRight(double pct){
+  leftMotors.spin(fwd, pct, vex::velocityUnits(rpm));
+  rightMotors.spin(reverse, pct, vex::velocityUnits(rpm));
+}
+void turnLeft(double pct){
+  leftMotors.spin(reverse, pct, vex::velocityUnits(rpm));
+  rightMotors.spin(fwd, pct, vex::velocityUnits(rpm));
 }
 
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              User Control Task                            */
-/*                                                                           */
-/*  This task is used to control your robot during the user control phase of */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
 void grab(){
   if(piston.value()){
     piston.set(false);
@@ -105,6 +67,53 @@ void forwardIntake(){
 }
 void backwardIntake(){
   contake.spin(reverse);
+}
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              Autonomous Task                              */
+/*                                                                           */
+/*  This task is used to control your robot during the autonomous phase of   */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
+void autonomous(void) {
+  // ..........................................................................
+  // Insert autonomous user code here.
+  // ..........................................................................
+  double PVal = 0;
+  double IVal = 0;
+  double DVal = 0;
+  // rightMotors.spin(fwd, 30, vex::percentUnits(100));
+  // leftMotors.spin(reverse, 30, vex::percentUnits(100));
+  turnLeft(30);
+  forwardDrive(30);
+  turnRight(30);
+  backwardDrive(30);
+  forwardIntake();
+  // rightMotors.spin(reverse, 30, vex::percentUnits(100));
+  // leftMotors.spin(fwd, 30, vex::percentUnits(100));
+  forwardDrive(10);
+  backwardIntake();
+  forwardDrive(20);
+}
+
+/*---------------------------------------------------------------------------*/
+/*                                                                           */
+/*                              User Control Task                            */
+/*                                                                           */
+/*  This task is used to control your robot during the user control phase of */
+/*  a VEX Competition.                                                       */
+/*                                                                           */
+/*  You must modify the code to add your own robot specific commands here.   */
+/*---------------------------------------------------------------------------*/
+
+double pidCalc(double PVal, double IVal, double DVal){
+  double KP = 0;
+  double KI = 0;
+  double KD = 0;
+  return PVal*KP+IVal*KI+DVal*KD;
 }
 
 void usercontrol(void) {
@@ -133,12 +142,11 @@ void usercontrol(void) {
 //
 int main() {
   // Set up callbacks for autonomous and driver control periods.
-  
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 
   // Run the pre-autonomous function.
-  pre_auton();
+    pre_auton();
   
 
   // Prevent main from exiting with an infinite loop.
