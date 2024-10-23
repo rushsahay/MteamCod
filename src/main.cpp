@@ -62,12 +62,16 @@ void grabStake(){
 // void release(){
 //   piston.set(false);
 // }
-void forwardIntake(){
+void contakeForward(){
   contake.spin(fwd);
 }
-void backwardIntake(){
+void contakeBackward(){
   contake.spin(reverse);
 }
+void contakeStop(){
+  contake.stop();
+}
+
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
 /*                              Autonomous Task                              */
@@ -85,14 +89,22 @@ void autonomous(void) {
   double PVal = 0;
   double IVal = 0;
   double DVal = 0;
-  turnLeft(30);
-  forwardDrive(30);
-  turnRight(30);
-  backwardDrive(30);
-  forwardIntake();
-  forwardDrive(10);
-  backwardIntake();
-  forwardDrive(20);
+  // turnLeft(30);
+  // forwardDrive(30);
+  // turnRight(30);
+  // backwardDrive(30);
+  // forwardIntake();
+  // forwardDrive(10);
+  // backwardIntake();
+  // forwardDrive(20);
+  forwardDrive(2.31);
+  turnLeft(1.83);
+  backwardDrive(0.6);
+  grabStake();
+  contakeForward();
+  wait(3, sec);
+  turnRight(1.58);
+  forwardDrive(1.3);
 }
 
 /*---------------------------------------------------------------------------*/
