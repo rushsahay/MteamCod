@@ -34,24 +34,24 @@ void pre_auton(void) {
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
-void forwardDrive(double pct){
-  leftMotors.spinFor(fwd, pct, turns, false);
-  rightMotors.spin(fwd, pct, vex::velocityUnits(rpm));
+void forwardDrive(double x){
+  leftMotors.spinFor(fwd, x, turns, false);
+  rightMotors.spinFor(fwd, x, turns, false);
 }
-void backwardDrive(double pct){
-  leftMotors.spin(reverse, pct, vex::velocityUnits(rpm));
-  rightMotors.spin(reverse, pct, vex::velocityUnits(rpm));
+void backwardDrive(double x){
+  leftMotors.spinFor(reverse, x, turns, false);
+  rightMotors.spinFor(reverse, x, turns, false);
 }
-void turnRight(double pct){
-  leftMotors.spin(fwd, pct, vex::velocityUnits(rpm));
-  rightMotors.spin(reverse, pct, vex::velocityUnits(rpm));
+void turnRight(double x){
+  leftMotors.spinFor(fwd, x, turns, false);
+  rightMotors.spinFor(reverse, x, turns, false);
 }
-void turnLeft(double pct){
-  leftMotors.spin(reverse, pct, vex::velocityUnits(rpm));
-  rightMotors.spin(fwd, pct, vex::velocityUnits(rpm));
+void turnLeft(double x){
+  leftMotors.spinFor(reverse, x, turns, false);
+  rightMotors.spinFor(fwd, x, turns, false);
 }
 
-void grab(){
+void grabStake(){
   if(piston.value()){
     piston.set(false);
   }
@@ -85,15 +85,11 @@ void autonomous(void) {
   double PVal = 0;
   double IVal = 0;
   double DVal = 0;
-  // rightMotors.spin(fwd, 30, vex::percentUnits(100));
-  // leftMotors.spin(reverse, 30, vex::percentUnits(100));
   turnLeft(30);
   forwardDrive(30);
   turnRight(30);
   backwardDrive(30);
   forwardIntake();
-  // rightMotors.spin(reverse, 30, vex::percentUnits(100));
-  // leftMotors.spin(fwd, 30, vex::percentUnits(100));
   forwardDrive(10);
   backwardIntake();
   forwardDrive(20);
@@ -131,7 +127,7 @@ void usercontrol(void) {
     drive.arcade(driver.Axis3.value(),driver.Axis1.value());
     driver.ButtonB.pressed(forwardIntake);
     driver.ButtonX.pressed(backwardIntake);
-    driver.ButtonR1.pressed(grab);
+    driver.ButtonR1.pressed(grabStake);
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
