@@ -137,8 +137,8 @@ void usercontrol(void) {
     // update your motors, etc.
     // ........................................................................
     drive.arcade(driver.Axis3.value(),driver.Axis1.value());
-    driver.ButtonB.pressed(forwardIntake);
-    driver.ButtonX.pressed(backwardIntake);
+    driver.ButtonB.pressed(contakeForward);
+    driver.ButtonX.pressed(contakeBackward);
     driver.ButtonR1.pressed(grabStake);
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
