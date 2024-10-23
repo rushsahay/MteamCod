@@ -10,10 +10,9 @@ brain Brain;
  *
  * This should be called at the start of your int main function.
  */
-void vexcodeInit(void) {
-  // Nothing to initialize
+
 motor left1 = motor(PORT1,ratio18_1,false);
- motor left2 = motor(PORT2,ratio18_1,false);
+motor left2 = motor(PORT2,ratio18_1,false);
 motor left3 = motor(PORT3,ratio18_1,false);
 motor_group leftMotors = motor_group(left1,left2,left3);
 //right motors are inverted and have gear ratio of 18 to 1
@@ -28,5 +27,9 @@ motor_group contake = motor_group(intake, conveyor);
 digital_out piston = digital_out(Brain.ThreeWirePort.A);
 //initialize the driver and operate(operator caused error) controllers
 controller driver = controller(primary);
+
+void vexcodeInit(void) {
+  // Nothing to initialize
+
 }
   

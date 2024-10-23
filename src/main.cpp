@@ -35,7 +35,7 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 }
 void forwardDrive(double pct){
-  leftMotors.spin(fwd, pct, vex::velocityUnits(rpm));
+  leftMotors.spinFor(fwd, pct, turns, false);
   rightMotors.spin(fwd, pct, vex::velocityUnits(rpm));
 }
 void backwardDrive(double pct){
