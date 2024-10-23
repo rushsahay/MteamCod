@@ -18,7 +18,5 @@ using namespace vex;
  extern drivetrain drive;
  extern controller driver;
  extern digital_out piston;
- extern motor intake;
- extern motor conveyor;
- extern motor_group contake;
+ extern motor contake;
 void vexcodeInit(void);
