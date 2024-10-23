@@ -21,9 +21,7 @@ motor right2 = motor(PORT5,ratio18_1,true);
 motor right3 = motor(PORT6,ratio18_1, true);
 motor_group rightMotors = motor_group(right1,right2,right3);
 drivetrain drive = drivetrain(leftMotors,rightMotors);
-motor intake = motor(PORT7,ratio18_1, false);
-motor conveyor = motor(PORT8, ratio18_1,true);
-motor_group contake = motor_group(intake, conveyor);
+motor contake = motor(PORT7,ratio18_1, false);
 digital_out piston = digital_out(Brain.ThreeWirePort.A);
 //initialize the driver and operate(operator caused error) controllers
 controller driver = controller(primary);
