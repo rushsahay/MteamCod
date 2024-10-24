@@ -22,7 +22,7 @@ motor right3 = motor(PORT8,ratio18_1, true);
 motor_group rightMotors = motor_group(right1,right2,right3);
 drivetrain drive = drivetrain(leftMotors,rightMotors);
 motor contake = motor(PORT4,ratio18_1, false);
-digital_out piston = digital_out(Brain.ThreeWirePort.A);
+digital_out piston = digital_out(Brain.ThreeWirePort.H);
 //initialize the driver and operate(operator caused error) controllers
 controller driver = controller(primary);
 
