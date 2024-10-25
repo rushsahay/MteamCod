@@ -32,7 +32,10 @@ motor rightMotorA = motor(PORT9, ratio18_1, true);
 motor rightMotorB = motor(PORT10, ratio18_1, true);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295, 40, mm, 1);
-
+motor conveyor = motor(PORT4,ratio18_1, false);
+motor intake = motor(PORT13, ratio18_1, false);
+motor_group contake = motor_group(conveyor, intake);
+digital_out piston = digital_out(Brain.ThreeWirePort.H);
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
@@ -89,16 +92,14 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
       }
+      
     }
     // wait before repeating the process
     wait(20, msec);
   }
   return 0;
 }
-motor conveyor = motor(PORT4,ratio18_1, false);
-motor intake = motor(PORT13, ratio18_1, false);
-motor_group contake = motor_group(conveyor, intake);
-digital_out piston = digital_out(Brain.ThreeWirePort.H);
+
 //initialize the driver and operate(operator caused error) controllers
 // controller driver = controller(primary);
 
