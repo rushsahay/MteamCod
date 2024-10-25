@@ -35,20 +35,20 @@ void pre_auton(void) {
   // Example: clearing encoders, setting servo positions, ...
 }
 void forwardDrive(double x){
-  leftMotors.spinFor(fwd, x, turns, false);
-  rightMotors.spinFor(fwd, x, turns, false);
+  LeftDriveSmart.spinFor(fwd, x, turns, false);
+  RightDriveSmart.spinFor(fwd, x, turns, false);
 }
 void backwardDrive(double x){
-  leftMotors.spinFor(reverse, x, turns, false);
-  rightMotors.spinFor(reverse, x, turns, false);
+  LeftDriveSmart.spinFor(reverse, x, turns, false);
+  RightDriveSmart.spinFor(reverse, x, turns, false);
 }
 void turnRight(double x){
-  leftMotors.spinFor(fwd, x, turns, false);
-  rightMotors.spinFor(reverse, x, turns, false);
+  LeftDriveSmart.spinFor(fwd, x, turns, false);
+  RightDriveSmart.spinFor(reverse, x, turns, false);
 }
 void turnLeft(double x){
-  leftMotors.spinFor(reverse, x, turns, false);
-  rightMotors.spinFor(fwd, x, turns, false);
+  LeftDriveSmart.spinFor(reverse, x, turns, false);
+  RightDriveSmart.spinFor(fwd, x, turns, false);
 }
 
 void grabStake(){
@@ -86,9 +86,9 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  double PVal = 0;
-  double IVal = 0;
-  double DVal = 0;
+  // double PVal = 0;
+  // double IVal = 0;
+  // double DVal = 0;
   // turnLeft(30);
   // forwardDrive(30);
   // turnRight(30);
@@ -117,17 +117,17 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-double pidCalc(double PVal, double IVal, double DVal){
-  double KP = 0;
-  double KI = 0;
-  double KD = 0;
-  return PVal*KP+IVal*KI+DVal*KD;
-}
+// double pidCalc(double PVal, double IVal, double DVal){
+//   double KP = 0;
+//   double KI = 0;
+//   double KD = 0;
+//   return PVal*KP+IVal*KI+DVal*KD;
+// }
 
 void usercontrol(void) {
   // User control code here, inside the loop
     
-  while (1) {
+  while (1){
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
@@ -136,10 +136,14 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
-    drive.arcade(driver.Axis3.value(),driver.Axis1.value());
-    driver.ButtonB.pressed(contakeForward);
-    driver.ButtonX.pressed(contakeBackward);
-    driver.ButtonR1.pressed(grabStake);
+    // LeftDriveSmart.setStopping(brake);
+    // RightDriveSmart.setStopping(brake);
+    /*
+    Controller1.ButtonB.pressed(contakeForward);
+    Controller1.ButtonX.pressed(contakeBackward);
+    Controller1.ButtonY.pressed(contakeStop);
+    Controller1.ButtonR1.pressed(grabStake);
+    */
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
