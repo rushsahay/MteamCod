@@ -92,7 +92,10 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
       }
-      
+      Controller1.ButtonB.pressed(contakeForward);
+      Controller1.ButtonX.pressed(contakeBackward);
+      Controller1.ButtonY.pressed(contakeStop);
+      Controller1.ButtonR1.pressed(grabStake);
     }
     // wait before repeating the process
     wait(20, msec);
