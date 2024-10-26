@@ -23,13 +23,13 @@ brain Brain;
 // motor right3 = motor(PORT8,ratio18_1, true);
 // motor_group rightMotors = motor_group(right2,right3);
 // drivetrain drive = drivetrain(leftMotors,rightMotors);
-// VEXcode device constructors
+
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT6, ratio18_1, false);
-motor leftMotorB = motor(PORT7, ratio18_1, false);
+motor leftMotorA = motor(PORT6, ratio18_1, true);
+motor leftMotorB = motor(PORT7, ratio18_1, true);
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-motor rightMotorA = motor(PORT9, ratio18_1, true);
-motor rightMotorB = motor(PORT10, ratio18_1, true);
+motor rightMotorA = motor(PORT9, ratio18_1, false);
+motor rightMotorB = motor(PORT10, ratio18_1, false);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295, 40, mm, 1);
 motor conveyor = motor(PORT4,ratio18_1, false);
@@ -47,7 +47,6 @@ bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 int rc_auto_loop_function_Controller1() {
   // process the controller input every 20 milliseconds
   // update the motors based on the input values
-  while(true) {
     if(RemoteControlCodeEnabled) {
       // calculate the drivetrain motor velocities from the controller joystick axies
       // left = Axis3 + Axis1
@@ -56,7 +55,7 @@ int rc_auto_loop_function_Controller1() {
       int drivetrainRightSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
       
       // check if the value is inside of the deadband range
-      if (drivetrainLeftSideSpeed < 5 && drivetrainLeftSideSpeed > -5) {
+      if (drivetrainLeftSideSpeed < 3 && drivetrainLeftSideSpeed > -3) {
         // check if the left motor has already been stopped
         if (DrivetrainLNeedsToBeStopped_Controller1) {
           // stop the left drive motor
@@ -69,7 +68,7 @@ int rc_auto_loop_function_Controller1() {
         DrivetrainLNeedsToBeStopped_Controller1 = true;
       }
       // check if the value is inside of the deadband range
-      if (drivetrainRightSideSpeed < 5 && drivetrainRightSideSpeed > -5) {
+      if (drivetrainRightSideSpeed < 3 && drivetrainRightSideSpeed > -3) {
         // check if the right motor has already been stopped
         if (DrivetrainRNeedsToBeStopped_Controller1) {
           // stop the right drive motor
@@ -84,30 +83,25 @@ int rc_auto_loop_function_Controller1() {
       
       // only tell the left drive motor to spin if the values are not in the deadband range
       if (DrivetrainLNeedsToBeStopped_Controller1) {
-        LeftDriveSmart.setVelocity(drivetrainLeftSideSpeed, percent);
+        LeftDriveSmart.setVelocity(drivetrainLeftSideSpeed*1.5, percent);
         LeftDriveSmart.spin(forward);
       }
       // only tell the right drive motor to spin if the values are not in the deadband range
       if (DrivetrainRNeedsToBeStopped_Controller1) {
-        RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
+        RightDriveSmart.setVelocity(drivetrainRightSideSpeed*1.5, percent);
         RightDriveSmart.spin(forward);
       }
-      Controller1.ButtonB.pressed(contakeForward);
-      Controller1.ButtonX.pressed(contakeBackward);
-      Controller1.ButtonY.pressed(contakeStop);
-      Controller1.ButtonR1.pressed(grabStake);
     }
-    // wait before repeating the process
-    wait(20, msec);
-  }
+  
   return 0;
 }
 
-//initialize the driver and operate(operator caused error) controllers
-// controller driver = controller(primary);
 
-void vexcodeInit(void) {
-  // Nothing to initialize
-
+/**
+ * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
+ * 
+ * This should be called at the start of your int main function.
+ */
+void vexcodeInit( void ) {
+  task rc_auto_loop_task_Controller1(rc_auto_loop_function_Controller1);
 }
-  
