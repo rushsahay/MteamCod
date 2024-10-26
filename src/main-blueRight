@@ -64,12 +64,12 @@ void grabStake(){
 // }
 void contakeForward(){
   conveyor.setVelocity(70, velocityUnits::rpm);
-  intake.setVelocity(70, velocityUnits::rpm);
+  intake.setVelocity(100, velocityUnits::rpm);
   contake.spin(fwd);
 }
 void contakeBackward(){
   conveyor.setVelocity(70, velocityUnits::rpm);
-  intake.setVelocity(70, velocityUnits::rpm);
+  intake.setVelocity(100, velocityUnits::rpm);
   contake.spin(reverse);
 }
 void contakeStop(){
@@ -115,18 +115,33 @@ void autonomous(void) {
 
   //1 full bot turn 360deg is 1.6 rotations of motor
   //start forward
+  intake.setVelocity(90, velocityUnits::rpm);
+  // grabStake();
+  forwardDrive(8.3);
+  intake.spin(reverse);
+  wait(3.2, sec);
+  turnRight(0.26);//45 deg right
+  wait(0.3, sec);
+  backwardDrive(1);
+  wait(2, sec);
   grabStake();
-  turnRight(0.23);//45 deg right
+ backwardDrive(0.1);
+  wait(0.6, sec);
+  contakeBackward();
+  wait(2.26, sec);
+  contakeStop();
+  forwardDrive(0.5);
   wait(0.2, sec);
-  forwardDrive(3.8);
-  intake.spin(fwd);
-  wait(0.5, sec);
-  turnRight(0.23);//45 deg right
-  backwardDrive(1.2);
-  grabStake();
-  contakeForward();
-  turnRight(0.9);//180 deg 
+  backwardDrive(0.5);
+  wait(0.2, sec);
+  contakeBackward();
+  wait(3, sec);
+  turnRight(1);
+  wait(1.5, sec);
   forwardDrive(1);
+  contakeStop();
+  // forwardDrive(0.3);
+
   // intake.spinFor(0.3, sec);
   // forwardDrive(0.5);
   // turnRight(1);//45 deg right
