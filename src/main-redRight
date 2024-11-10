@@ -186,9 +186,18 @@ void usercontrol(void) {
   //   
   while(1){
     rc_auto_loop_function_Controller1();
-  Controller1.ButtonB.pressed(contakeForward);
-     Controller1.ButtonX.pressed(contakeBackward);
-   Controller1.ButtonY.pressed(contakeStop);
+  // Controller1.ButtonB.pressed(contakeForward);
+    //  Controller1.ButtonX.pressed(contakeBackward);
+    if (Controller1.ButtonX.pressing()) {
+            contakeBackward(); 
+        }
+        else if(Controller1.ButtonB.pressing())
+        {
+          contakeForward();
+        }
+        else{contakeStop();}
+    
+  //  Controller1.ButtonY.pressed(contakeStop);
      Controller1.ButtonR1.pressed(grabStake);
   }
   //   
