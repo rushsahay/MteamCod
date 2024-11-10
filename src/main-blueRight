@@ -63,13 +63,11 @@ void grabStake(){
 //   piston.set(false);
 // }
 void contakeForward(){
-  conveyor.setVelocity(70, velocityUnits::rpm);
-  intake.setVelocity(100, velocityUnits::rpm);
+  
   contake.spin(fwd);
 }
 void contakeBackward(){
-  conveyor.setVelocity(70, velocityUnits::rpm);
-  intake.setVelocity(100, velocityUnits::rpm);
+  
   contake.spin(reverse);
 }
 void contakeStop(){
@@ -117,10 +115,10 @@ void autonomous(void) {
   //start forward
   intake.setVelocity(90, velocityUnits::rpm);
   // grabStake();
-  forwardDrive(8.3);
+  forwardDrive(8.1);
   intake.spin(reverse);
   wait(3.2, sec);
-  turnRight(0.26);//45 deg right
+  turnRight(0.21);//45 deg right
   wait(0.3, sec);
   backwardDrive(1);
   wait(2, sec);
@@ -184,13 +182,25 @@ void usercontrol(void) {
   //   // LeftDriveSmart.setStopping(brake);
   //   // RightDriveSmart.setStopping(brake);
   //   
+  conveyor.setVelocity(70, velocityUnits::rpm);
+  intake.setVelocity(100, velocityUnits::rpm);
   while(1){
     rc_auto_loop_function_Controller1();
-  Controller1.ButtonB.pressed(contakeForward);
-     Controller1.ButtonX.pressed(contakeBackward);
-   Controller1.ButtonY.pressed(contakeStop);
+  // Controller1.ButtonB.pressed(contakeForward);
+    //  Controller1.ButtonX.pressed(contakeBackward);
+    if (Controller1.ButtonX.pressing()) {
+            contakeBackward(); 
+        }
+        else if(Controller1.ButtonB.pressing())
+        {
+          contakeForward();
+        }
+        else{contakeStop();}
+    
+  //  Controller1.ButtonY.pressed(contakeStop);
      Controller1.ButtonR1.pressed(grabStake);
   }
+  
   //   
   //   wait(20, msec); // Sleep the task for a short amount of time to
   //                   // prevent wasted resources.
