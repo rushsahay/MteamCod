@@ -25,6 +25,9 @@ brain Brain;
 // drivetrain drive = drivetrain(leftMotors,rightMotors);
 
 controller Controller1 = controller(primary);
+rotation rightRotate = rotation(PORT8,false);
+rotation leftRotate = rotation(PORT9, true);
+inertial inert = inertial(PORT10);
 motor leftMotorA = motor(PORT6, ratio18_1, true);
 motor leftMotorB = motor(PORT7, ratio18_1, true);
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
@@ -102,6 +105,9 @@ int rc_auto_loop_function_Controller1() {
  * 
  * This should be called at the start of your int main function.
  */
+void vexcodeInit( void ) {
+  task rc_auto_loop_task_Controller1(rc_auto_loop_function_Controller1);
+}
 void vexcodeInit( void ) {
   task rc_auto_loop_task_Controller1(rc_auto_loop_function_Controller1);
 }

@@ -31,6 +31,10 @@ things needed to change when changing these values*/
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  rightRotate.resetPosition();
+  leftRotate.resetPosition();
+  intert.resetHeading();
+  intert.resetRotation();
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -81,30 +85,58 @@ void contakeStop(){
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+double kP = 0.2;
+double kI = 0.1;
+double kD = 0.2;
+double turnkP = 3;
+double turnkI = 1.2;
+double turnkD = 0.2;
+int desiredValue = 200;
+int desiredTurnValue = 10;
+bool PIDEnabled = true;
+int error;
+int prevError = 0;
+int derivative; 
+int totalError = 0;
 
+int turnError;
+int turnPrevError = 0;
+int turnDerivative; 
+int turnTotalError = 0;
+int PIDControl(){
+  while(PIDEnabled){
+    int leftMotorPos = leftMotorA.position(degrees);
+    int rightMotorPos = rightMotorA.position(degrees);
+    int average = (leftMotorPos-rightMotorPos)/2;
+    error = average-desiredValue;
+    derivative = error-prevError;
+    totalError+=error;
+    double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
+
+    int turnleftMotorPos = leftMotorA.position(degrees);
+    int turnrightMotorPos = rightMotorA.position(degrees);
+    int turnaverage = (turnleftMotorPos-turnrightMotorPos)/2;
+    turnError = turnaverage-desiredTurnValue;
+    turnDerivative = turnError-turnPrevError;
+    turnTotalError+=turnError;
+    double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
+    RightDriveSmart.spin(forward,motorOut+turnMotorOut,velocityUnits::pct);
+    LeftDriveSmart.spin(forward,motorOut-turnMotorOut,velocityUnits::pct);
+    turnPrevError = turnError;
+  vex::task::sleep(20);
+  }
+  return 1;
+
+}
 void autonomous(void) {
+  
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  // double PVal = 0;
-  // double IVal = 0;
-  // double DVal = 0;
-  // turnLeft(30);
-  // forwardDrive(30);
-  // turnRight(30);
-  // backwardDrive(30);
-  // forwardIntake();
-  // forwardDrive(10);
-  // backwardIntake();
-  // forwardDrive(20);
-  forwardDrive(2.31);
-  turnLeft(1.83);
-  backwardDrive(0.6);
-  grabStake();
-  contakeForward();
-  wait(3, sec);
-  turnRight(1.58);
-  forwardDrive(1.3);
+  vex::task updatePid(PIDControl);
+  if(PIDEnabled){
+    
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -117,15 +149,11 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-// double pidCalc(double PVal, double IVal, double DVal){
-//   double KP = 0;
-//   double KI = 0;
-//   double KD = 0;
-//   return PVal*KP+IVal*KI+DVal*KD;
-// }
+
 
 void usercontrol(void) {
   // User control code here, inside the loop
+  PIDEnabled = false;
   rc_auto_loop_function_Controller1();
   // while (1){
   //   // This is the main execution loop for the user control program.
@@ -153,6 +181,8 @@ void usercontrol(void) {
 //
 // Main will set up the competition functions and callbacks.
 //
+
+
 int main() {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);

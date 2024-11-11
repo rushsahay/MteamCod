@@ -30,5 +30,8 @@ extern drivetrain Drivetrain;
  extern motor conveyor;
  extern motor intake;
  extern motor_group contake;
+ extern rotation rightRotate;
+ extern rotation leftRotate;
+ extern inertial intert;
  int rc_auto_loop_function_Controller1();
 void vexcodeInit(void);
