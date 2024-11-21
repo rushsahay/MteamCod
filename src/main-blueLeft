@@ -1,219 +1,38 @@
-/*----------------------------------------------------------------------------*/
-/*                                                                            */
-/*    Module:       main.cpp                                                  */
-/*    Author:       VEX                                                       */
-/*    Created:      Thu Sep 26 2019                                           */
-/*    Description:  Competition Template                                      */
-/*                                                                            */
-/*----------------------------------------------------------------------------*/
-
-
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// ---- END VEXCODE CONFIGURED DEVICES ----
-#include "vex.h"
-#include "robot-config.h"
-using namespace vex;
-// A global instance of competition
-competition Competition;
-// define your global instances of motors and other devices here
-//left motors aren't inverted && have gear ratio of 18 to 1
-/*Might be useful to consider putting these values in a constants file as done in frc to minimize the amount of 
-things needed to change when changing these values*/
-/*---------------------------------------------------------------------------*/
-/*                          Pre-Autonomous Functions                         */
-/*                                                                           */
-/*  You may want to perform some actions before the competition starts.      */
-/*  Do them in the following function.  You must return from this function   */
-/*  or the autonomous and usercontrol tasks will not be started.  This       */
-/*  function is only called once after the V5 has been powered on and        */
-/*  not every time that the robot is disabled.                               */
-/*---------------------------------------------------------------------------*/
-void pre_auton(void) {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
-  // All activities that occur before the competition starts
-  // Example: clearing encoders, setting servo positions, ...
-}
-void forwardDrive(double x){
-  LeftDriveSmart.spinFor(fwd, x, turns, false);
-  RightDriveSmart.spinFor(fwd, x, turns, false);
-}
-void backwardDrive(double x){
-  LeftDriveSmart.spinFor(reverse, x, turns, false);
-  RightDriveSmart.spinFor(reverse, x, turns, false);
-}
-void turnRight(double x){
-  LeftDriveSmart.spinFor(fwd, x, turns, false);
-  RightDriveSmart.spinFor(reverse, x, turns, false);
-}
-void turnLeft(double x){
-  LeftDriveSmart.spinFor(reverse, x, turns, false);
-  RightDriveSmart.spinFor(fwd, x, turns, false);
-}
-
-void grabStake(){
-  if(piston.value()){
-    piston.set(false);
-  }
-  else{
-    piston.set(true);
-  }
-}
-// void release(){
-//   piston.set(false);
-// }
-void contakeForward(){
-  conveyor.setVelocity(70, velocityUnits::rpm);
-  intake.setVelocity(100, velocityUnits::rpm);
-  contake.spin(fwd);
-}
-void contakeBackward(){
-  conveyor.setVelocity(70, velocityUnits::rpm);
-  intake.setVelocity(100, velocityUnits::rpm);
-  contake.spin(reverse);
-}
-void contakeStop(){
-  contake.stop();
-}
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
 void autonomous(void) {
+  
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  // double PVal = 0;
-  // double IVal = 0;
-  // double DVal = 0;
-  // turnLeft(30);
-  // forwardDrive(30);
-  // turnRight(30);
-  // backwardDrive(30);
-  // forwardIntake();
-  // forwardDrive(10);
-  // backwardIntake();
-  // forwardDrive(20);
-
-
-  // backwardDrive(2.11);
-  // turnRight(1.53);
-  // backwardDrive(1);
-  // grabStake();
-  // contakeForward();
-  // wait(3, sec);
-  // turnRight(1.58);
-  // forwardDrive(1.3);
-
-
-  //1 full bot turn 360deg is 1.6 rotations of motor
-  //start forward
-  intake.setVelocity(90, velocityUnits::rpm);
-  // grabStake();
-  forwardDrive(8.3);
-  intake.spin(reverse);
-  wait(3.2, sec);
-  turnLeft(0.88);//45 deg right
-  wait(0.3, sec);
-  backwardDrive(1.15);
-  wait(2, sec);
-  grabStake();
- backwardDrive(0.1);
-  wait(0.6, sec);
-  contakeBackward();
-  wait(3.5, sec);
-  turnLeft(1.3);
-  wait(1.3, sec);
-  forwardDrive(1);
-  contakeStop();
-  // forwardDrive(0.3);
-
-  // intake.spinFor(0.3, sec);
-  // forwardDrive(0.5);
-  // turnRight(1);//45 deg right
-  // backwardDrive(1.2);
-  // grabStake();
-  // contakeForward();
-  // turnRight(4);//180 turn
-  // forwardDrive(2.3);
-}
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              User Control Task                            */
-/*                                                                           */
-/*  This task is used to control your robot during the user control phase of */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
-// double pidCalc(double PVal, double IVal, double DVal){
-//   double KP = 0;
-//   double KI = 0;
-//   double KD = 0;
-//   return PVal*KP+IVal*KI+DVal*KD;
-// }
-
-void usercontrol(void) {
-  // User control code here, inside the loop
-  
-  // while (1){
-  //   // This is the main execution loop for the user control program.
-  //   // Each time through the loop your program should update motor + servo
-  //   // values based on feedback from the joysticks.
-
-  //   // ........................................................................
-  //   // Insert user code here. This is where you use the joystick values to
-  //   // update your motors, etc.
-  //   // ........................................................................
-  //   // LeftDriveSmart.setStopping(brake);
-  //   // RightDriveSmart.setStopping(brake);
-  //   
-  while(1){
-    rc_auto_loop_function_Controller1();
-  // Controller1.ButtonB.pressed(contakeForward);
-    //  Controller1.ButtonX.pressed(contakeBackward);
-    if (Controller1.ButtonX.pressing()) {
-            contakeBackward(); 
-        }
-        else if(Controller1.ButtonB.pressing())
-        {
-          contakeForward();
-        }
-        else{contakeStop();}
+  // vex::task updatePid(PIDControl);
+  // if(PIDEnabled){
     
-  //  Controller1.ButtonY.pressed(contakeStop);
-     Controller1.ButtonR1.pressed(grabStake);
-  }
-  //   
-  //   wait(20, msec); // Sleep the task for a short amount of time to
-  //                   // prevent wasted resources.
   // }
-  
-}
+  //starting heading: right(towards blue alliance wall) is 0
+  moveBackwardPID(36);
+  wait(1, sec);
+  grabStake();
+  wait(10, msec);
+  contakeForward();
+  wait(300, msec);
+  turnToHeading(90);
+  wait(500, msec);
+  moveForwardPID(25);
+  wait(1.5, sec);
+  grabStake(); //release
+  turnToHeading(0);
+  wait(500, msec);
+  moveBackwardPID(22);
+  wait(600, msec);
+  grabStake();
+  wait(10, msec);
+  moveForwardPID(18);
+  wait(400, msec);
+  turnToHeading(270);
+  wait(500, msec);
+  moveForwardPID(46);
+  wait(2, sec);
 
-//
-// Main will set up the competition functions and callbacks.
-//
-int main() {
-  // Set up callbacks for autonomous and driver control periods.
-  Competition.autonomous(autonomous);
-  Competition.drivercontrol(usercontrol);
 
-  // Run the pre-autonomous function.
-    pre_auton();
-  
 
-  // Prevent main from exiting with an infinite loop.
-  while (true) {
-    wait(100, msec);
-  }
+
 }
