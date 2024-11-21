@@ -23,7 +23,7 @@ void autonomous(void) {
   wait(500, msec);
   moveBackwardPID(22);
   wait(600, msec);
-  grabStake();
+  releaseStake();
   wait(10, msec);
   moveForwardPID(18);
   wait(400, msec);
