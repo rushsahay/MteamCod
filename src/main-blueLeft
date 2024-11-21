@@ -18,7 +18,7 @@ void autonomous(void) {
   wait(500, msec);
   moveForwardPID(25);
   wait(1.5, sec);
-  grabStake(); //release
+  releaseStake(); //release
   turnToHeading(0);
   wait(500, msec);
   moveBackwardPID(22);
