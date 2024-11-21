@@ -38,7 +38,8 @@ drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295,
 motor conveyor = motor(PORT4,ratio18_1, false);
 motor intake = motor(PORT13, ratio18_1, false);
 motor_group contake = motor_group(conveyor, intake);
-digital_out piston = digital_out(Brain.ThreeWirePort.H);
+digital_out mogomech = digital_out(Brain.ThreeWirePort.H);
+digital_out arm = digital_out(Brain.ThreeWirePort.A);
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
@@ -108,4 +109,3 @@ int rc_auto_loop_function_Controller1() {
 void vexcodeInit( void ) {
   task rc_auto_loop_task_Controller1(rc_auto_loop_function_Controller1);
 }
-
