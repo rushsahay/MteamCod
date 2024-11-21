@@ -31,10 +31,10 @@ things needed to change when changing these values*/
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-  rightRotate.resetPosition();
-  leftRotate.resetPosition();
-  intert.resetHeading();
-  intert.resetRotation();
+  // rightRotate.resetPosition();
+  // leftRotate.resetPosition();
+  inert.resetHeading();
+  inert.resetRotation();
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -56,16 +56,22 @@ void turnLeft(double x){
 }
 
 void grabStake(){
-  if(piston.value()){
-    piston.set(false);
-  }
-  else{
-    piston.set(true);
-  }
+    mogomech.set(true);
+}
+void releaseStake(){
+  mogomech.set(false);
 }
 // void release(){
-//   piston.set(false);
+//   mogomech.set(false);
 // }
+void arm_up_down(){
+  if(arm.value()){
+    arm.set(false);
+  }
+  else{
+    arm.set(true);
+  }
+}
 void contakeForward(){
   contake.spin(fwd);
 }
@@ -85,58 +91,150 @@ void contakeStop(){
 /*                                                                           */
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
+double wheelCircumference = 10.2101761242; //drivetrain wheel circumference in inches
 double kP = 0.2;
 double kI = 0.1;
 double kD = 0.2;
 double turnkP = 3;
 double turnkI = 1.2;
 double turnkD = 0.2;
-int desiredValue = 200;
-int desiredTurnValue = 10;
-bool PIDEnabled = true;
-int error;
-int prevError = 0;
-int derivative; 
-int totalError = 0;
+// int desiredValue = 200;
+// int desiredTurnValue = 10;
+// bool PIDEnabled = true;
+double error;
+double prevError = 0;
+double derivative; 
+double totalError = 0;
 
-int turnError;
-int turnPrevError = 0;
+double turnError;
+double turnPrevError = 0;
 int turnDerivative; 
-int turnTotalError = 0;
-int PIDControl(){
-  while(PIDEnabled){
-    int leftMotorPos = leftMotorA.position(degrees);
-    int rightMotorPos = rightMotorA.position(degrees);
-    int average = (leftMotorPos-rightMotorPos)/2;
-    error = average-desiredValue;
+double turnTotalError = 0;
+
+void moveForwardPID(double distance){
+  int encoderCounts = (distance / wheelCircumference) * 360;
+  LeftDriveSmart.resetPosition();
+  RightDriveSmart.resetPosition();
+  while(true){
+    double leftMotorPos = LeftDriveSmart.position(degrees);
+    double rightMotorPos = RightDriveSmart.position(degrees);
+    double averagePosition = (leftMotorPos + rightMotorPos) / 2.0;
+
+    error = encoderCounts - averagePosition;
     derivative = error-prevError;
     totalError+=error;
+
+    // if (fabs(error) < 10) {
+    //   break;
+    // }
+
     double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
 
-    int turnleftMotorPos = leftMotorA.position(degrees);
-    int turnrightMotorPos = rightMotorA.position(degrees);
-    int turnaverage = (turnleftMotorPos-turnrightMotorPos)/2;
-    turnError = turnaverage-desiredTurnValue;
+    LeftDriveSmart.spin(fwd, motorOut, percent);
+    RightDriveSmart.spin(fwd, motorOut, percent);
+
+    prevError=error;
+    vex::task::sleep(20);
+  }
+  LeftDriveSmart.stop();
+  RightDriveSmart.stop();
+}
+
+void moveBackwardPID(double distance){
+  int encoderCounts = (distance / wheelCircumference) * 360;
+  LeftDriveSmart.resetPosition();
+  RightDriveSmart.resetPosition();
+  while(true){
+    double leftMotorPos = fabs(LeftDriveSmart.position(degrees));
+    double rightMotorPos = fabs(RightDriveSmart.position(degrees));
+    double averagePosition = (leftMotorPos + rightMotorPos) / 2.0;
+
+    error = encoderCounts - averagePosition;
+    derivative = error-prevError;
+    totalError+=error;
+
+    // if (fabs(error) < 10) {
+    //   break;
+    // }
+
+    double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
+
+    LeftDriveSmart.spin(reverse, motorOut, percent);
+    RightDriveSmart.spin(reverse, motorOut, percent);
+
+    prevError=error;
+    vex::task::sleep(20);
+  }
+  LeftDriveSmart.stop();
+  RightDriveSmart.stop();
+}
+
+void turnToHeading(double targetHeading) {
+  while (true) {
+    // Get current heading from the inertial sensor
+    double currentHeading = inert.heading();
+
+    // Error calculation for turning
+    turnError = targetHeading - currentHeading;
     turnDerivative = turnError-turnPrevError;
     turnTotalError+=turnError;
-    double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
-    RightDriveSmart.spin(forward,motorOut+turnMotorOut,velocityUnits::pct);
-    LeftDriveSmart.spin(forward,motorOut-turnMotorOut,velocityUnits::pct);
-    turnPrevError = turnError;
-  vex::task::sleep(20);
-  }
-  return 1;
 
+    double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
+
+    // Spin motors to correct heading
+    LeftDriveSmart.spin(forward, -turnMotorOut, percent);
+    RightDriveSmart.spin(forward, turnMotorOut, percent);
+
+    // Stop condition: when robot is close to desired heading
+    // if (fabs(turnError) < 1.0) {
+    //   break;
+    // }
+    turnPrevError = turnError;
+    vex::task::sleep(20);
+  }
+
+  // Stop motors once desired heading is reached
+  LeftDriveSmart.stop();
+  RightDriveSmart.stop();
 }
+
+// int PIDControl(){
+//   while(PIDEnabled){
+//     int leftMotorPos = leftMotorA.position(degrees);
+//     int rightMotorPos = rightMotorA.position(degrees);
+//     int average = (leftMotorPos-rightMotorPos)/2;
+//     error = average-desiredValue;
+//     derivative = error-prevError;
+//     totalError+=error;
+//     double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
+
+//     int turnleftMotorPos = leftMotorA.position(degrees);
+//     int turnrightMotorPos = rightMotorA.position(degrees);
+//     int turnaverage = (turnleftMotorPos-turnrightMotorPos)/2;
+//     turnError = turnaverage-desiredTurnValue;
+//     turnDerivative = turnError-turnPrevError;
+//     turnTotalError+=turnError;
+//     double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
+//     RightDriveSmart.spin(forward,motorOut+turnMotorOut,velocityUnits::pct);
+//     LeftDriveSmart.spin(forward,motorOut-turnMotorOut,velocityUnits::pct);
+//     turnPrevError = turnError;
+//   vex::task::sleep(20);
+//   }
+//   return 1;
+
+// }
 void autonomous(void) {
   
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  vex::task updatePid(PIDControl);
-  if(PIDEnabled){
-    
-  }
+
+  //
+  //
+  // ADD AUTON CODE FROM OTHER GIT FILES
+  //
+  //
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -153,25 +251,18 @@ void autonomous(void) {
 
 void usercontrol(void) {
   // User control code here, inside the loop
-  PIDEnabled = false;
-  rc_auto_loop_function_Controller1();
-  // while (1){
-  //   // This is the main execution loop for the user control program.
-  //   // Each time through the loop your program should update motor + servo
-  //   // values based on feedback from the joysticks.
-
-  //   // ........................................................................
-  //   // Insert user code here. This is where you use the joystick values to
-  //   // update your motors, etc.
-  //   // ........................................................................
-  //   // LeftDriveSmart.setStopping(brake);
-  //   // RightDriveSmart.setStopping(brake);
-  //   /*
-  //   Controller1.ButtonB.pressed(contakeForward);
-  //   Controller1.ButtonX.pressed(contakeBackward);
-  //   Controller1.ButtonY.pressed(contakeStop);
-  //   Controller1.ButtonR1.pressed(grabStake);
-  //   */
+  // PIDEnabled = false;
+  while(1){
+    rc_auto_loop_function_Controller1();
+     Controller1.ButtonUp.pressed(grabStake);
+     Controller1.ButtonDown.pressed(releaseStake);
+     Controller1.ButtonRight.pressed(contakeForward);
+     Controller1.ButtonLeft.pressed(contakeBackward);
+     Controller1.ButtonL1.pressed(contakeStop);
+     Controller1.ButtonL2.pressed(arm_up_down);
+     wait(20, msec);
+  }
+  //   
   //   wait(20, msec); // Sleep the task for a short amount of time to
   //                   // prevent wasted resources.
   // }
