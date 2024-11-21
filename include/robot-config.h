@@ -22,16 +22,20 @@ extern controller Controller1;
 extern motor leftMotorA;
 extern motor leftMotorB;
 extern motor_group LeftDriveSmart;
+
 extern motor rightMotorA;
 extern motor rightMotorB;
 extern motor_group RightDriveSmart;
+
 extern drivetrain Drivetrain;
- extern digital_out piston;
+ extern digital_out mogomech;
+ extern digital_out arm;
+//  extern digital_out colorCodePiston;
  extern motor conveyor;
  extern motor intake;
  extern motor_group contake;
  extern rotation rightRotate;
  extern rotation leftRotate;
- extern inertial intert;
+ extern inertial inert;
  int rc_auto_loop_function_Controller1();
 void vexcodeInit(void);
