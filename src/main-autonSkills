@@ -56,7 +56,7 @@ void autonomous(void) {
   moveForwardPID(20);
   turnToHeading(180);
   moveForwardPID(15);
-  extendArm();
+  arm_up_down();
   turnToHeading(0);
   moveBackwardPID(10);
   releaseStake(); //release
