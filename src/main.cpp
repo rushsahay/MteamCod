@@ -81,7 +81,14 @@ void contakeBackward(){
 void contakeStop(){
   contake.stop();
 }
-
+void setDriveSpeeds(){
+  intake.setVelocity(50, percent);
+  conveyor.setVelocity(80, percent);
+}
+void setAutonSpeeds(){
+  intake.setVelocity(50, percent);
+  conveyor.setVelocity(80, percent);
+}
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
 /*                              Autonomous Task                              */
@@ -252,6 +259,7 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   // PIDEnabled = false;
+  setDriveSpeeds();
   while(1){
     rc_auto_loop_function_Controller1();
      Controller1.ButtonUp.pressed(grabStake);
