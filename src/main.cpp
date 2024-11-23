@@ -56,10 +56,10 @@ void turnLeft(double x){
 }
 
 void grabStake(){
-    mogomech.set(true);
+  mogomech.set(false);
 }
 void releaseStake(){
-  mogomech.set(false);
+  mogomech.set(true);
 }
 // void release(){
 //   mogomech.set(false);
@@ -83,11 +83,13 @@ void contakeStop(){
 }
 void setDriveSpeeds(){
   intake.setVelocity(50, percent);
-  conveyor.setVelocity(80, percent);
+  conveyor.setVelocity(65, percent);
+  Drivetrain.setStopping(brake);
 }
 void setAutonSpeeds(){
   intake.setVelocity(50, percent);
   conveyor.setVelocity(80, percent);
+  Drivetrain.setStopping(coast);
 }
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -99,12 +101,12 @@ void setAutonSpeeds(){
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 double wheelCircumference = 10.2101761242; //drivetrain wheel circumference in inches
-double kP = 0.2;
-double kI = 0.1;
-double kD = 0.2;
-double turnkP = 3;
-double turnkI = 1.2;
-double turnkD = 0.2;
+double kP = 0.445;//0.48 , 0.551 , 0.529
+double kD = 0.0076;//0.027, 0.016
+double kI = 0.005;//0.013
+double turnkP = 0.2;
+double turnkI = 0;
+double turnkD = 0;
 // int desiredValue = 200;
 // int desiredTurnValue = 10;
 // bool PIDEnabled = true;
@@ -116,10 +118,10 @@ double totalError = 0;
 double turnError;
 double turnPrevError = 0;
 int turnDerivative; 
-double turnTotalError = 0;
+// double turnTotalError = 0;
 
 void moveForwardPID(double distance){
-  int encoderCounts = (distance / wheelCircumference) * 360;
+  int encoderCounts = (distance / wheelCircumference) * 360 / 2;
   LeftDriveSmart.resetPosition();
   RightDriveSmart.resetPosition();
   while(true){
@@ -131,9 +133,9 @@ void moveForwardPID(double distance){
     derivative = error-prevError;
     totalError+=error;
 
-    // if (fabs(error) < 10) {
-    //   break;
-    // }
+    if (fabs(error) < 2) {
+      break;
+    }
 
     double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
 
@@ -141,40 +143,40 @@ void moveForwardPID(double distance){
     RightDriveSmart.spin(fwd, motorOut, percent);
 
     prevError=error;
-    vex::task::sleep(20);
+    wait(30, msec);
   }
   LeftDriveSmart.stop();
   RightDriveSmart.stop();
 }
 
-void moveBackwardPID(double distance){
-  int encoderCounts = (distance / wheelCircumference) * 360;
-  LeftDriveSmart.resetPosition();
-  RightDriveSmart.resetPosition();
-  while(true){
-    double leftMotorPos = fabs(LeftDriveSmart.position(degrees));
-    double rightMotorPos = fabs(RightDriveSmart.position(degrees));
-    double averagePosition = (leftMotorPos + rightMotorPos) / 2.0;
+// void moveBackwardPID(double distance){
+//   int encoderCounts = (distance / wheelCircumference) * 360;
+//   LeftDriveSmart.resetPosition();
+//   RightDriveSmart.resetPosition();
+//   while(true){
+//     double leftMotorPos = fabs(LeftDriveSmart.position(degrees));
+//     double rightMotorPos = fabs(RightDriveSmart.position(degrees));
+//     double averagePosition = (leftMotorPos + rightMotorPos) / 2.0;
 
-    error = encoderCounts - averagePosition;
-    derivative = error-prevError;
-    totalError+=error;
+//     error = encoderCounts - averagePosition;
+//     derivative = error-prevError;
+//     totalError+=error;
 
-    // if (fabs(error) < 10) {
-    //   break;
-    // }
+//     // if (fabs(error) < 10) {
+//     //   break;
+//     // }
 
-    double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
+//     double motorOut = (error*kP)+(totalError*kI)+(derivative*kD);
 
-    LeftDriveSmart.spin(reverse, motorOut, percent);
-    RightDriveSmart.spin(reverse, motorOut, percent);
+//     LeftDriveSmart.spin(reverse, motorOut, percent);
+//     RightDriveSmart.spin(reverse, motorOut, percent);
 
-    prevError=error;
-    vex::task::sleep(20);
-  }
-  LeftDriveSmart.stop();
-  RightDriveSmart.stop();
-}
+//     prevError=error;
+//     wait(30, msec);
+//   }
+//   LeftDriveSmart.stop();
+//   RightDriveSmart.stop();
+// }
 
 void turnToHeading(double targetHeading) {
   while (true) {
@@ -184,9 +186,10 @@ void turnToHeading(double targetHeading) {
     // Error calculation for turning
     turnError = targetHeading - currentHeading;
     turnDerivative = turnError-turnPrevError;
-    turnTotalError+=turnError;
+    // turnTotalError+=turnError;
 
-    double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
+    // double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
+    double turnMotorOut = (turnError*turnkP)+(turnDerivative*turnkD);
 
     // Spin motors to correct heading
     LeftDriveSmart.spin(forward, -turnMotorOut, percent);
@@ -232,15 +235,6 @@ void turnToHeading(double targetHeading) {
 // }
 void autonomous(void) {
   
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
-
-  //
-  //
-  // ADD AUTON CODE FROM OTHER GIT FILES
-  //
-  //
 
 }
 
@@ -255,19 +249,32 @@ void autonomous(void) {
 /*---------------------------------------------------------------------------*/
 
 
-
+//forwardPID one tile is 24
+//backwardPID one tile is -26
 void usercontrol(void) {
   // User control code here, inside the loop
   // PIDEnabled = false;
   setDriveSpeeds();
+  // moveForwardPID(24);
+  // wait(1.5, sec);
+
   while(1){
     rc_auto_loop_function_Controller1();
-     Controller1.ButtonUp.pressed(grabStake);
-     Controller1.ButtonDown.pressed(releaseStake);
-     Controller1.ButtonRight.pressed(contakeForward);
-     Controller1.ButtonLeft.pressed(contakeBackward);
-     Controller1.ButtonL1.pressed(contakeStop);
-     Controller1.ButtonL2.pressed(arm_up_down);
+     Controller1.ButtonL1.pressed(grabStake);
+     Controller1.ButtonL2.pressed(releaseStake);
+    //  Controller1.ButtonRight.pressed(contakeForward);
+    //  Controller1.ButtonLeft.pressed(contakeBackward);
+    //  Controller1.ButtonL1.pressed(contakeStop);
+     Controller1.ButtonUp.pressed(arm_up_down);
+     if(Controller1.ButtonR2.pressing()){
+       contakeForward();
+     }
+     else if(Controller1.ButtonR1.pressing()){
+       contakeBackward();
+     }
+     else{
+       contakeStop();
+     }
      wait(20, msec);
   }
   //   
