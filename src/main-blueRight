@@ -37,3 +37,23 @@ void autonomous(void) {
 
 
 }
+
+
+
+
+//last comp auton just moving forward and taking ring
+  setAutonSpeeds();
+  backwardDrive(1.8);
+  wait(2, sec);
+  backwardDrive(0.1);
+  wait(0.1, sec);
+  mogomech.set(true);
+  wait(0.4, sec);
+  contakeForward();
+  wait(2, sec);
+  contakeStop();
+  mogomech.set(false);
+  wait(0.4,sec);
+  backwardDrive(0.4);
+  wait(0.5,sec);
+  mogomech.set(true);
