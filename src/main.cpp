@@ -88,7 +88,7 @@ void setDriveSpeeds(){
 }
 void setAutonSpeeds(){
   intake.setVelocity(50, percent);
-  conveyor.setVelocity(80, percent);
+  conveyor.setVelocity(65, percent);
   Drivetrain.setStopping(coast);
 }
 /*---------------------------------------------------------------------------*/
@@ -178,6 +178,35 @@ void moveForwardPID(double distance){
 //   RightDriveSmart.stop();
 // }
 
+// void turnToHeading(double targetHeading) {
+//   while (true) {
+//     // Get current heading from the inertial sensor
+//     double currentHeading = inert.heading();
+
+//     // Error calculation for turning
+//     turnError = targetHeading - currentHeading;
+//     turnDerivative = turnError-turnPrevError;
+//     // turnTotalError+=turnError;
+
+//     // double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
+//     double turnMotorOut = (turnError*turnkP)+(turnDerivative*turnkD);
+
+//     // Spin motors to correct heading
+//     LeftDriveSmart.spin(forward, -turnMotorOut, percent);
+//     RightDriveSmart.spin(forward, turnMotorOut, percent);
+
+//     // Stop condition: when robot is close to desired heading
+//     // if (fabs(turnError) < 1.0) {
+//     //   break;
+//     // }
+//     turnPrevError = turnError;
+//     vex::task::sleep(20);
+//   }
+
+//   // Stop motors once desired heading is reached
+//   LeftDriveSmart.stop();
+//   RightDriveSmart.stop();
+// }
 void turnToHeading(double targetHeading) {
   while (true) {
     // Get current heading from the inertial sensor
@@ -185,22 +214,22 @@ void turnToHeading(double targetHeading) {
 
     // Error calculation for turning
     turnError = targetHeading - currentHeading;
-    turnDerivative = turnError-turnPrevError;
+    // turnDerivative = turnError-turnPrevError;
     // turnTotalError+=turnError;
 
     // double turnMotorOut = (turnError*turnkP)+(turnTotalError*turnkI)+(turnDerivative*turnkD);
-    double turnMotorOut = (turnError*turnkP)+(turnDerivative*turnkD);
+    double turnMotorOut = (turnError*turnkP);
 
     // Spin motors to correct heading
     LeftDriveSmart.spin(forward, -turnMotorOut, percent);
     RightDriveSmart.spin(forward, turnMotorOut, percent);
 
     // Stop condition: when robot is close to desired heading
-    // if (fabs(turnError) < 1.0) {
-    //   break;
-    // }
+    if (fabs(turnError) < 1.0) {
+      break;
+    }
     turnPrevError = turnError;
-    vex::task::sleep(20);
+    wait(30, msec);
   }
 
   // Stop motors once desired heading is reached
@@ -235,6 +264,17 @@ void turnToHeading(double targetHeading) {
 // }
 void autonomous(void) {
   
+  // ..........................................................................
+  // Insert autonomous user code here.
+  // ..........................................................................
+  // vex::task updatePid(PIDControl);
+  // if(PIDEnabled){
+    
+  // }
+  //starting heading: right(towards blue alliance wall) is 0
+
+
+
 
 }
 
