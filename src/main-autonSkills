@@ -1,76 +1,6 @@
-void autonomous(void) {
-  
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
-  // vex::task updatePid(PIDControl);
-  // if(PIDEnabled){
-    
-  // }
-  moveForwardPID(3);
-  grabStake();
-  contakeForward();
-  turnToHeading(180);
-  moveForwardPID(24);
-  turnToHeading(90);
-  moveForwardPID(24);
-  turnToHeading(0);
-  moveForwardPID(24);
-  turnToHeading(90);
-  moveForwardPID(14);
-  turnToHeading(315);
-  moveForwardPID(10);
-  turnToHeading(270);
-  moveBackwardPID(20);
-  releaseStake();//release
-  turnToHeading(225);
-  moveForwardPID(19);
-  turnToHeading(90);
-  moveBackwardPID(72);
-  grabStake();
-  turnToHeading(180);
-  moveForwardPID(24);
-  turnToHeading(270);
-  moveForwardPID(24);
-  turnToHeading(0);
-  moveForwardPID(38);
-  turnToHeading(225);
-  moveForwardPID(12);
-  turnToHeading(180);
-  moveForwardPID(50);
-  moveBackwardPID(60);
-  turnToHeading(135);
-  moveBackwardPID(14);
-  releaseStake(); //release
-  moveForwardPID(119);
-  contakeStop();
-  turnToHeading(0);
-  moveBackwardPID(40);
-  grabStake();
-  contakeForward();
-  turnToHeading(90);
-  moveForwardPID(25);
-  turnToHeading(0);
-  moveForwardPID(8);
-  turnToHeading(90);
-  moveForwardPID(20);
-  turnToHeading(180);
-  moveForwardPID(15);
-  arm_up_down();
-  turnToHeading(0);
-  moveBackwardPID(10);
-  releaseStake(); //release
-
-
-
-
-
-
-}
-
 setAutonSpeeds();
   // 2 is one full diagonal
-  backwardDrive(1.4);
+  backwardDrive(1.356);
   wait(1.7,sec);
   mogomech.set(true);
   wait(0.5, sec);
@@ -78,34 +8,58 @@ setAutonSpeeds();
   wait(1.5, sec);
   // backwardDrive(1);
   // wait(1.3, sec);
-  turnRight(0.548);
+  turnRight(0.54);
   wait(1, sec);
   // forwardDrive(7.2);
   // wait(8, sec);
-  forwardDrive(2.9);
-  wait(5, sec);
-  forwardDrive(2.5);
-  wait(5, sec);
-  forwardDrive(0.96);
-  wait(3, sec);
-  arm.set(true);
-  wait(0.3, sec);
-  turnRight(0.25);
-  wait(1, sec);
-  arm.set(false);
-  wait(0.3, sec);
-  forwardDrive(0.7);
-  wait(1, sec);
-  turnLeft(0.48);
-  wait(1,sec);
-  forwardDrive(0.3);
-  arm.set(true);
-  wait(0.3,sec);
-  turnLeft(0.98);
-  wait(3, sec);
-  arm.set(false);
-  backwardDrive(1);
-  wait(1, sec);
-  mogomech.set(false);
-  forwardDrive(1);
+  forwardDrive(1.4);
+  wait(2, sec);
   contakeStop();
+  forwardDrive(1.5);
+  wait(0.9, sec);
+  contakeForward();
+  wait(1.85, sec);
+  turnLeft(0.065);
+  wait(0.3, sec);
+  forwardDrive(2.5);
+  contakeStop();
+  wait(1, sec);
+  contakeForward();
+  wait(2.2, sec);
+  forwardDrive(1.23);
+  wait(3.5, sec);
+  contakeStop();
+  turnLeft(1.13);
+  wait(2.5, sec);
+  mogomech.set(false);
+  wait(0.8,sec);
+  backwardDrive(2.3);
+  wait(2, sec);
+  forwardDrive(0.3);
+  wait(0.2, sec);
+  // turnLeft(0.22);
+  // wait(1,sec);
+  // forwardDrive(0.3);
+  // arm.set(true);
+  // wait(0.3,sec);
+  // forwardDrive(0.6);
+  // wait(0.2, sec);
+  // turnLeft(1.08);
+  // wait(3, sec);
+  // arm.set(false);
+  // backwardDrive(1.4);
+  // wait(1.3, sec);
+  // mogomech.set(false);
+  forwardDrive(0.2);
+  wait(0.4, sec);
+  turnLeft(0.3);
+  wait(0.2, sec);
+  forwardDrive(0.8);
+  wait(1.2, sec);
+  turnLeft(0.3);
+  wait(0.3, sec);
+  forwardDrive(5);
+  wait(6, sec);
+  turnLeft(0.4);
+  wait(0.4, sec);
+  forwardDrive(1);
