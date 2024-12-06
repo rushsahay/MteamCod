@@ -28,19 +28,19 @@ controller Controller1 = controller(primary);
 // rotation rightRotate = rotation(PORT8,false);
 // rotation leftRotate = rotation(PORT9, true);
 inertial inert = inertial(PORT4);
-motor leftMotorA = motor(PORT18, ratio18_1, true);
-motor leftMotorB = motor(PORT1, ratio18_1, true);
+motor leftMotorA = motor(PORT3, ratio18_1, true);//
+motor leftMotorB = motor(PORT6, ratio18_1, true);//
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-motor rightMotorA = motor(PORT15, ratio18_1, false);
-motor rightMotorB = motor(PORT20, ratio18_1, false);
+motor rightMotorA = motor(PORT2, ratio18_1, false); //
+motor rightMotorB = motor(PORT10, ratio18_1, false);//
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295, 40, mm, 1);
 
-motor conveyor = motor(PORT8,ratio18_1, false);
-motor intake = motor(PORT2, ratio18_1, true);
+motor conveyor = motor(PORT8,ratio18_1, true);//
+motor intake = motor(PORT20, ratio18_1, true);
 motor_group contake = motor_group(conveyor, intake);
-digital_out mogomech = digital_out(Brain.ThreeWirePort.A);
-digital_out arm = digital_out(Brain.ThreeWirePort.B);
+digital_out mogomech = digital_out(Brain.ThreeWirePort.D);//
+digital_out arm = digital_out(Brain.ThreeWirePort.F);//
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
@@ -57,8 +57,8 @@ int rc_auto_loop_function_Controller1() {
       // calculate the drivetrain motor velocities from the controller joystick axies
       // left = Axis3 + Axis1
       // right = Axis3 - Axis1
-      int drivetrainLeftSideSpeed = Controller1.Axis3.position() + (0.6)*Controller1.Axis1.position();
-      int drivetrainRightSideSpeed = Controller1.Axis3.position() - (0.6)*Controller1.Axis1.position();
+      int drivetrainLeftSideSpeed = Controller1.Axis3.position() + (0.48)*Controller1.Axis1.position();
+      int drivetrainRightSideSpeed = Controller1.Axis3.position() - (0.48)*Controller1.Axis1.position();
       
       // check if the value is inside of the deadband range
       if (drivetrainLeftSideSpeed < 3 && drivetrainLeftSideSpeed > -3) {
