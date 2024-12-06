@@ -275,29 +275,7 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  // vex::task updatePid(PIDControl);
-  // if(PIDEnabled){
-    
-  // }
-  //starting heading: right(towards blue alliance wall) is 0
-  setAutonSpeeds();
-  backwardDrive(1.8);
-  wait(2, sec);
-  backwardDrive(0.1);
-  wait(0.1, sec);
-  mogomech.set(true);
-  wait(0.4, sec);
-  contakeForward();
-  wait(2, sec);
-  contakeStop();
-  mogomech.set(false);
-  wait(0.4,sec);
-  backwardDrive(0.4);
-  wait(0.5,sec);
-  mogomech.set(true);
-
-
-
+//FROM OTHER GIT FILES
 }
 
 /*---------------------------------------------------------------------------*/
