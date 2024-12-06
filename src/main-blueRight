@@ -1,59 +1,34 @@
-void autonomous(void) {
-  
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
-  // vex::task updatePid(PIDControl);
-  // if(PIDEnabled){
-    
-  // }
-  //starting heading: right(towards blue alliance wall) is 0
-  moveBackwardPID(36);
-  wait(1, sec);
-  grabStake();
-  wait(10, msec);
-  contakeForward();
-  wait(300, msec);
-  turnToHeading(270);
-  wait(500, msec);
-  moveForwardPID(25);
-  wait(1.5, sec);
-  turnToHeading(190);
-  wait(500, msec);
-  moveForwardPID(20);
-  wait(600, msec);
-  turnToHeading(165);
-  wait(200, msec);
-  moveForwardPID(3);
-  wait(200, msec);
-  turnToHeading(180);
-  wait(500, msec);
-  moveBackwardPID(23);
-  wait(1, sec);
-  turnToHeading(90);
-  wait(500, msec);
-  moveForwardPID(23);
-
-
-
-}
-
-
-
-
-//last comp auton just moving forward and taking ring
-  setAutonSpeeds();
-  backwardDrive(1.8);
+setAutonSpeeds();
+  backwardDrive(2.2);
   wait(2, sec);
   backwardDrive(0.1);
   wait(0.1, sec);
   mogomech.set(true);
-  wait(0.4, sec);
   contakeForward();
-  wait(2, sec);
+  wait(1, sec);
+  forwardDrive(0.2);
+  wait(0.2, sec);
+  backwardDrive(0.2);
+  wait(0.2, sec);
+  turnLeft(0.628);
+  wait(1, sec);
   contakeStop();
-  mogomech.set(false);
-  wait(0.4,sec);
-  backwardDrive(0.4);
-  wait(0.5,sec);
-  mogomech.set(true);
+  forwardDrive(1.2);
+  wait(1.5, sec);
+  contakeForward();
+  forwardDrive(0.2);
+  wait(1.7, sec);
+  backwardDrive(0.3);
+  wait(0.2, sec);
+  forwardDrive(0.3);
+  wait(0.2, sec);
+  turnLeft(0.655);
+  wait(0.6, sec);
+  forwardDrive(0.69);  
+  wait(3, sec);
+  backwardDrive(1.4);
+  wait(0.9, sec);
+  turnRight(0.6);
+  wait(0.8, sec);
+  contakeStop();
+  backwardDrive(1.78);
