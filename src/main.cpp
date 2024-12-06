@@ -83,8 +83,8 @@ void contakeStop(){
 }
 void setDriveSpeeds(){
   intake.setVelocity(50, percent);
-  conveyor.setVelocity(65, percent);
-  Drivetrain.setStopping(brake);
+  conveyor.setVelocity(60, percent);
+  Drivetrain.setStopping(coast);
 }
 void setAutonSpeeds(){
   intake.setVelocity(50, percent);
@@ -271,9 +271,6 @@ void autonomous(void) {
   // if(PIDEnabled){
     
   // }
-  //starting heading: right(towards blue alliance wall) is 0
-
-
 
 
 }
