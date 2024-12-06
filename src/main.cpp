@@ -61,6 +61,14 @@ void grabStake(){
 void releaseStake(){
   mogomech.set(true);
 }
+void switchMogo(){
+  if(mogomech.value()){
+    mogomech.set(false);
+  }
+  else{
+    mogomech.set(true);
+  }
+}
 // void release(){
 //   mogomech.set(false);
 // }
@@ -271,6 +279,23 @@ void autonomous(void) {
   // if(PIDEnabled){
     
   // }
+  //starting heading: right(towards blue alliance wall) is 0
+  setAutonSpeeds();
+  backwardDrive(1.8);
+  wait(2, sec);
+  backwardDrive(0.1);
+  wait(0.1, sec);
+  mogomech.set(true);
+  wait(0.4, sec);
+  contakeForward();
+  wait(2, sec);
+  contakeStop();
+  mogomech.set(false);
+  wait(0.4,sec);
+  backwardDrive(0.4);
+  wait(0.5,sec);
+  mogomech.set(true);
+
 
 
 }
@@ -297,8 +322,9 @@ void usercontrol(void) {
 
   while(1){
     rc_auto_loop_function_Controller1();
-     Controller1.ButtonL1.pressed(grabStake);
-     Controller1.ButtonL2.pressed(releaseStake);
+    //  Controller1.ButtonL1.pressed(grabStake);
+    //  Controller1.ButtonL2.pressed(releaseStake);
+    Controller1.ButtonL2.pressed(switchMogo);
     //  Controller1.ButtonRight.pressed(contakeForward);
     //  Controller1.ButtonLeft.pressed(contakeBackward);
     //  Controller1.ButtonL1.pressed(contakeStop);
