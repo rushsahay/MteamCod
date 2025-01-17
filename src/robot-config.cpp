@@ -25,25 +25,25 @@ brain Brain;
 // drivetrain drive = drivetrain(leftMotors,rightMotors);
 
 controller Controller1 = controller(primary);
-// rotation rightRotate = rotation(PORT8,false);
-// rotation leftRotate = rotation(PORT9, true);
-inertial inert = inertial(PORT4);
-motor leftMotorA = motor(PORT3, ratio18_1, true);//
-motor leftMotorB = motor(PORT6, ratio18_1, true);//
-motor leftMotorC = motor(PORT6, ratio18_1, true);//
+// rotation rightRotate = rotation(PORT6,false);
+// rotation leftRotate = rotation(PORT7, true);
+inertial inert = inertial(PORT20);
+motor leftMotorA = motor(PORT7, ratio18_1, true);//
+motor leftMotorB = motor(PORT8, ratio18_1, true);//
+motor leftMotorC = motor(PORT9, ratio18_1, true);//
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-motor rightMotorA = motor(PORT2, ratio18_1, false); //
-motor rightMotorB = motor(PORT10, ratio18_1, false);//
-motor rightMotorC = motor(PORT10, ratio18_1, false);//
+motor rightMotorA = motor(PORT1, ratio18_1, false); //
+motor rightMotorB = motor(PORT2, ratio18_1, false);//
+motor rightMotorC = motor(PORT3, ratio18_1, false);//
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295, 40, mm, 1);
 
-motor conveyor = motor(PORT8,ratio18_1, true);//
-motor intake = motor(PORT20, ratio18_1, true);
+motor conveyor = motor(PORT11,ratio6_1, true);//
+motor intake = motor(PORT4, ratio18_1, true);
 motor_group contake = motor_group(conveyor, intake);
 motor wallStake = motor(PORT5, ratio18_1, true);
-digital_out mogomech = digital_out(Brain.ThreeWirePort.D);//
-digital_out arm = digital_out(Brain.ThreeWirePort.F);//
+digital_out mogomech = digital_out(Brain.ThreeWirePort.A);//
+digital_out arm = digital_out(Brain.ThreeWirePort.B);//
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
