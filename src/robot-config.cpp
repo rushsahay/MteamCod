@@ -30,15 +30,18 @@ controller Controller1 = controller(primary);
 inertial inert = inertial(PORT4);
 motor leftMotorA = motor(PORT3, ratio18_1, true);//
 motor leftMotorB = motor(PORT6, ratio18_1, true);//
+motor leftMotorC = motor(PORT6, ratio18_1, true);//
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
 motor rightMotorA = motor(PORT2, ratio18_1, false); //
 motor rightMotorB = motor(PORT10, ratio18_1, false);//
+motor rightMotorC = motor(PORT10, ratio18_1, false);//
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295, 40, mm, 1);
 
 motor conveyor = motor(PORT8,ratio18_1, true);//
 motor intake = motor(PORT20, ratio18_1, true);
 motor_group contake = motor_group(conveyor, intake);
+motor wallStake = motor(PORT5, ratio18_1, true);
 digital_out mogomech = digital_out(Brain.ThreeWirePort.D);//
 digital_out arm = digital_out(Brain.ThreeWirePort.F);//
 
