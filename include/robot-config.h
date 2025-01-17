@@ -38,8 +38,8 @@ extern drivetrain Drivetrain;
  extern motor_group contake;
   extern motor wallStake;
   
- extern rotation parallelRotational;
- extern rotation perpendicularRotational;
+ // extern rotation parallelRotational;
+ // extern rotation perpendicularRotational;
  extern inertial inert;
  int rc_auto_loop_function_Controller1();
 void vexcodeInit(void);
