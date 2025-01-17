@@ -21,10 +21,12 @@ using namespace vex;
 extern controller Controller1;
 extern motor leftMotorA;
 extern motor leftMotorB;
+extern motor leftMotorC;
 extern motor_group LeftDriveSmart;
 
 extern motor rightMotorA;
 extern motor rightMotorB;
+extern motor rightMotorC;
 extern motor_group RightDriveSmart;
 
 extern drivetrain Drivetrain;
@@ -34,8 +36,10 @@ extern drivetrain Drivetrain;
  extern motor conveyor;
  extern motor intake;
  extern motor_group contake;
-//  extern rotation rightRotate;
-//  extern rotation leftRotate;
+  extern motor wallStake;
+  
+ extern rotation parallelRotational;
+ extern rotation perpendicularRotational;
  extern inertial inert;
  int rc_auto_loop_function_Controller1();
 void vexcodeInit(void);
