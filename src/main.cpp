@@ -89,15 +89,27 @@ void contakeBackward(){
 void contakeStop(){
   contake.stop();
 }
+
+void wallStakeLoad(){
+  wallStake.spinToPosition(115, degrees);
+}
+void wallStakeRest(){
+  wallStake.spinToPosition(0, degrees);
+}
+void wallStakeScore(){
+  wallStake.spinToPosition(400, degrees);
+}
+
 void setDriveSpeeds(){
-  intake.setVelocity(50, percent);
-  conveyor.setVelocity(60, percent);
+  intake.setVelocity(200, rpm);
+  conveyor.setVelocity(550, rpm);
+  wallStake.setVelocity(150, rpm); //150/3 = 50rpm
   Drivetrain.setStopping(coast);
 }
 void setAutonSpeeds(){
-  intake.setVelocity(50, percent);
-  conveyor.setVelocity(65, percent);
-  Drivetrain.setStopping(coast);
+  intake.setVelocity(200, rpm);
+  conveyor.setVelocity(550, rpm);
+  Drivetrain.setStopping(brake);
 }
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
@@ -276,6 +288,33 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 //FROM OTHER GIT FILES
+setAutonSpeeds();
+  backwardDrive(2.3);
+  wait(2, sec);
+  backwardDrive(0.1);
+  wait(0.1, sec);
+  mogomech.set(true);
+  wait(0.3, sec);
+  contakeForward();
+  wait(1, sec);
+  forwardDrive(0.1);
+  wait(0.1, sec);
+  backwardDrive(0.1);
+  wait(0.1, sec);
+  turnLeft(0.56);
+  wait(1, sec);
+  contakeStop();
+  forwardDrive(1.25);
+  wait(1.8, sec);
+  contakeForward();
+  forwardDrive(0.3);
+  wait(1.7, sec);
+  backwardDrive(2.7);
+  wait(2, sec);
+  contakeStop();
+  turnRight(0.35);
+  wait(0.5, sec);
+  backwardDrive(0.8);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -300,12 +339,8 @@ void usercontrol(void) {
 
   while(1){
     rc_auto_loop_function_Controller1();
-    //  Controller1.ButtonL1.pressed(grabStake);
-    //  Controller1.ButtonL2.pressed(releaseStake);
+
     Controller1.ButtonL2.pressed(switchMogo);
-    //  Controller1.ButtonRight.pressed(contakeForward);
-    //  Controller1.ButtonLeft.pressed(contakeBackward);
-    //  Controller1.ButtonL1.pressed(contakeStop);
      Controller1.ButtonUp.pressed(arm_up_down);
      if(Controller1.ButtonR2.pressing()){
        contakeForward();
@@ -316,6 +351,9 @@ void usercontrol(void) {
      else{
        contakeStop();
      }
+     Controller1.ButtonA.pressed(wallStakeLoad);
+     Controller1.ButtonB.pressed(wallStakeRest);
+     Controller1.ButtonX.pressed(wallStakeScore);
      wait(20, msec);
   }
   //   
