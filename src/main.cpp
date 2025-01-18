@@ -288,33 +288,7 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 //FROM OTHER GIT FILES
-setAutonSpeeds();
-  backwardDrive(2.3);
-  wait(2, sec);
-  backwardDrive(0.1);
-  wait(0.1, sec);
-  mogomech.set(true);
-  wait(0.3, sec);
-  contakeForward();
-  wait(1, sec);
-  forwardDrive(0.1);
-  wait(0.1, sec);
-  backwardDrive(0.1);
-  wait(0.1, sec);
-  turnLeft(0.56);
-  wait(1, sec);
-  contakeStop();
-  forwardDrive(1.25);
-  wait(1.8, sec);
-  contakeForward();
-  forwardDrive(0.3);
-  wait(1.7, sec);
-  backwardDrive(2.7);
-  wait(2, sec);
-  contakeStop();
-  turnRight(0.35);
-  wait(0.5, sec);
-  backwardDrive(0.8);
+
 }
 
 /*---------------------------------------------------------------------------*/
