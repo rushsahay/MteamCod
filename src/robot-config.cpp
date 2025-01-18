@@ -41,7 +41,7 @@ drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295,
 motor conveyor = motor(PORT11,ratio6_1, true);//
 motor intake = motor(PORT4, ratio18_1, true);
 motor_group contake = motor_group(conveyor, intake);
-motor wallStake = motor(PORT5, ratio18_1, false);
+motor wallStake = motor(PORT5, ratio18_1, true);
 digital_out mogomech = digital_out(Brain.ThreeWirePort.A);//
 digital_out arm = digital_out(Brain.ThreeWirePort.B);//
 
