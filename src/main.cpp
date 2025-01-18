@@ -91,24 +91,31 @@ void contakeStop(){
 }
 
 void wallStakeLoad(){
-  wallStake.spinToPosition(115, degrees);
+  wallStake.spinToPosition(155, degrees);
 }
 void wallStakeRest(){
   wallStake.spinToPosition(0, degrees);
 }
 void wallStakeScore(){
-  wallStake.spinToPosition(400, degrees);
+  wallStake.spinToPosition(635, degrees);
+}
+void touchTower(){
+  wallStake.spinToPosition(230, degrees);
 }
 
 void setDriveSpeeds(){
+  wallStake.spinToPosition(0,degrees);
   intake.setVelocity(200, rpm);
   conveyor.setVelocity(550, rpm);
-  wallStake.setVelocity(150, rpm); //150/3 = 50rpm
+  wallStake.setVelocity(200, rpm); // 200/5 = 40rpm
+  Drivetrain.setDriveVelocity(100, percent);
   Drivetrain.setStopping(coast);
 }
 void setAutonSpeeds(){
   intake.setVelocity(200, rpm);
   conveyor.setVelocity(550, rpm);
+  wallStake.setVelocity(200, rpm); // 200/5 = 40rpm
+  Drivetrain.setDriveVelocity(35, percent);
   Drivetrain.setStopping(brake);
 }
 /*---------------------------------------------------------------------------*/
