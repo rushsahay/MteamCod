@@ -90,14 +90,24 @@ void contakeStop(){
   contake.stop();
 }
 
+
+bool runWallStakeRoutine=false;
+int wallStakeCount = 0;
 void wallStakeLoad(){
   wallStake.spinToPosition(155, degrees);
+  runWallStakeRoutine=false;
 }
 void wallStakeRest(){
   wallStake.spinToPosition(0, degrees);
+  runWallStakeRoutine=false;
 }
 void wallStakeScore(){
   wallStake.spinToPosition(635, degrees);
+}
+
+void wallStakeFunction(){
+  wallStakeLoad();
+  runWallStakeRoutine=true;
 }
 void touchTower(){
   wallStake.spinToPosition(230, degrees);
@@ -321,7 +331,8 @@ void usercontrol(void) {
   while(1){
     rc_auto_loop_function_Controller1();
 
-    Controller1.ButtonL2.pressed(switchMogo);
+    Controller1.ButtonL2.pressed(releaseStake);
+    Controller1.ButtonL2.released(grabStake);
      Controller1.ButtonUp.pressed(arm_up_down);
      if(Controller1.ButtonR2.pressing()){
        contakeForward();
@@ -334,7 +345,19 @@ void usercontrol(void) {
      }
      Controller1.ButtonA.pressed(wallStakeLoad);
      Controller1.ButtonB.pressed(wallStakeRest);
-     Controller1.ButtonX.pressed(wallStakeScore);
+     Controller1.ButtonX.pressed(wallStakeFunction);
+    if(runWallStakeRoutine){
+      wallStakeCount++;
+      contakeForward();
+      if(wallStakeCount>13){
+        contakeStop();
+        wallStakeScore();
+      }
+    }
+    else{
+      wallStakeCount=0;
+    }
+
      wait(20, msec);
   }
   //   
