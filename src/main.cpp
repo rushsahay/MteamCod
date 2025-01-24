@@ -352,6 +352,8 @@ void usercontrol(void) {
       if(wallStakeCount>13){
         contakeStop();
         wallStakeScore();
+        runWallStakeRoutine=false;
+        wallStakeCount=0;
       }
     }
     else{
