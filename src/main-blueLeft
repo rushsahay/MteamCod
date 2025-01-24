@@ -1,9 +1,10 @@
 setAutonSpeeds();
+mogomech.set(true);
   backwardDrive(4.9);
   wait(2, sec);
   backwardDrive(0.3);
   wait(0.6, sec);
-  mogomech.set(true);
+  mogomech.set(false);
   wait(0.7, sec);
   contakeForward();
   wait(1, sec);
