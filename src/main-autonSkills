@@ -1,4 +1,5 @@
 setAutonSpeeds();
+mogomech.set(true);
   contakeForward();
   wait(0.8,sec);
   forwardDrive(2.4);
