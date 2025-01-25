@@ -1,6 +1,6 @@
 setAutonSpeeds();
-mogomech.set(true);
-Drivetrain.setDriveVelocity(25, percent);
+  mogomech.set(true);
+  Drivetrain.setDriveVelocity(25, percent);
   backwardDrive(5.1);
   wait(2, sec);
   Drivetrain.setDriveVelocity(40, percent);
@@ -22,4 +22,4 @@ Drivetrain.setDriveVelocity(25, percent);
   wait(0.8,sec);
   turnRight(2.8);
   wait(2, sec);
-  forwardDrive(1.9);
+  forwardDrive(2.4); 
