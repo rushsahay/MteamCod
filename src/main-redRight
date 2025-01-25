@@ -1,8 +1,10 @@
 setAutonSpeeds();
 mogomech.set(true);
-  backwardDrive(4.8);
+  Drivetrain.setDriveVelocity(25, percent);
+  backwardDrive(5.1);
   wait(2, sec);
-  backwardDrive(0.26);
+  Drivetrain.setDriveVelocity(40, percent);
+  backwardDrive(0.3);
   wait(0.6, sec);
   mogomech.set(false);
   wait(0.7, sec);
