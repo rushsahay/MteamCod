@@ -1,7 +1,5 @@
-//18pt auton
-
 setAutonSpeeds();
-mogomech.set(true);
+mogomech.set(false);
   contakeForward();
   wait(0.8,sec);
   forwardDrive(2.4);
@@ -37,25 +35,38 @@ mogomech.set(true);
   contakeStop();
   wait(0.1, sec); //after this is commented code if it doesnt work
 
-  forwardDrive(3.08);
+  forwardDrive(3.2);
   wait(2,sec);
   turnRight(2.6);
   wait(1.7,sec);
-  backwardDrive(17);
+  backwardDrive(12);
   wait(3.5,sec);
   switchMogo();//clamp
+  wait(1,sec);
   contakeForward();
   turnRight(3.2);
   wait(1.7,sec);
-  forwardDrive(3);
+  forwardDrive(3.2);
   wait(2,sec);
-  turnRight(1.55);
+  turnRight(2.3);
   wait(0.8,sec);
+  contakeBackward();
   backwardDrive(1);
   wait(0.5,sec);
+  contakeStop();
   switchMogo(); //release
-  forwardDrive(18);
+  wait(0.4,sec);
+  turnLeft(0.45);
+  wait(0.2,sec);
+  forwardDrive(14);
   wait(3,sec);
+  turnRight(0.85);
+  wait(0.4,sec);
+  Drivetrain.setDriveVelocity(45, percent);
+  forwardDrive(22);
+  wait(4,sec);
+  backwardDrive(2);
+
 
   // turnRight(1.72); code for last skills auton
   // wait(1.5, sec);
