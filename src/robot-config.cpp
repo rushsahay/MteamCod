@@ -43,7 +43,7 @@ motor intake = motor(PORT4, ratio18_1, true);
 motor_group contake = motor_group(conveyor, intake);
 motor wallStake = motor(PORT10, ratio18_1, true);
 digital_out mogomech = digital_out(Brain.ThreeWirePort.B);//
-digital_out arm = digital_out(Brain.ThreeWirePort.H);//
+digital_out arm = digital_out(Brain.ThreeWirePort.C);//
 digital_out intakePiston = digital_out(Brain.ThreeWirePort.A);
 optical opticalSensor = optical(PORT21);
 // VEXcode generated functions
