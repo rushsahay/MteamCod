@@ -35,6 +35,7 @@ void pre_auton(void) {
   // leftRotate.resetPosition();
   inert.resetHeading();
   inert.resetRotation();
+  Brain.Screen.print("19697M Carnage");
   // All activities that occur before the competition starts
   // Example: clearing encoders, setting servo positions, ...
 }
@@ -56,10 +57,10 @@ void turnLeft(double x){
 }
 
 void grabStake(){
-  mogomech.set(false);
+  mogomech.set(true);
 }
 void releaseStake(){
-  mogomech.set(true);
+  mogomech.set(false);
 }
 void switchMogo(){
   if(mogomech.value()){
@@ -120,6 +121,7 @@ void setDriveSpeeds(){
   wallStake.setVelocity(200, rpm); // 200/5 = 40rpm
   Drivetrain.setDriveVelocity(100, percent);
   Drivetrain.setStopping(coast);
+  intakePiston.set(false);
 }
 void setAutonSpeeds(){
   intake.setVelocity(200, rpm);
@@ -327,7 +329,7 @@ void usercontrol(void) {
   setDriveSpeeds();
   // moveForwardPID(24);
   // wait(1.5, sec);
-
+  grabStake();
   while(1){
     rc_auto_loop_function_Controller1();
 
