@@ -32,6 +32,7 @@ extern motor_group RightDriveSmart;
 extern drivetrain Drivetrain;
  extern digital_out mogomech;
  extern digital_out arm;
+ extern digital_out intakePiston;
 //  extern digital_out colorCodePiston;
  extern motor conveyor;
  extern motor intake;
