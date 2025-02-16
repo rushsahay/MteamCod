@@ -27,7 +27,7 @@ brain Brain;
 controller Controller1 = controller(primary);
 // rotation rightRotate = rotation(PORT6,false);
 // rotation leftRotate = rotation(PORT7, true);
-inertial inert = inertial(PORT20);
+inertial inert = inertial(PORT1);
 motor leftMotorA = motor(PORT11, ratio6_1, true);//
 motor leftMotorB = motor(PORT12, ratio6_1, true);//
 motor leftMotorC = motor(PORT14, ratio6_1, true);//
@@ -41,11 +41,11 @@ drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 299.24, 295,
 motor conveyor = motor(PORT13,ratio6_1, true);//
 motor intake = motor(PORT4, ratio18_1, true);
 motor_group contake = motor_group(conveyor, intake);
-motor wallStake = motor(PORT10, ratio18_1, false);
-digital_out intakePiston = digital_out(Brain.ThreeWirePort.A);//
+motor wallStake = motor(PORT10, ratio18_1, true);
 digital_out mogomech = digital_out(Brain.ThreeWirePort.B);//
-digital_out arm = digital_out(Brain.ThreeWirePort.C);//
-
+digital_out arm = digital_out(Brain.ThreeWirePort.H);//
+digital_out intakePiston = digital_out(Brain.ThreeWirePort.A);
+optical opticalSensor = optical(PORT21);
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
@@ -61,8 +61,8 @@ int rc_auto_loop_function_Controller1() {
       // calculate the drivetrain motor velocities from the controller joystick axies
       // left = Axis3 + Axis1
       // right = Axis3 - Axis1
-      int drivetrainLeftSideSpeed = Controller1.Axis3.position() + Controller1.Axis1.position();
-      int drivetrainRightSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
+      int drivetrainLeftSideSpeed = Controller1.Axis3.position() + (0.6)*Controller1.Axis1.position();
+      int drivetrainRightSideSpeed = Controller1.Axis3.position() - (0.6)*Controller1.Axis1.position();
       
       // check if the value is inside of the deadband range
       if (drivetrainLeftSideSpeed < 3 && drivetrainLeftSideSpeed > -3) {
