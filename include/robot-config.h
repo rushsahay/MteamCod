@@ -38,6 +38,7 @@ extern drivetrain Drivetrain;
  extern motor intake;
  extern motor_group contake;
   extern motor wallStake;
+extern optical vis;
   
  // extern rotation parallelRotational;
  // extern rotation perpendicularRotational;
