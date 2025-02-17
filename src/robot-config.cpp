@@ -45,7 +45,7 @@ motor wallStake = motor(PORT10, ratio18_1, false);
 digital_out mogomech = digital_out(Brain.ThreeWirePort.B);//
 digital_out arm = digital_out(Brain.ThreeWirePort.C);//
 digital_out intakePiston = digital_out(Brain.ThreeWirePort.A);
-optical opticalSensor = optical(PORT21);
+optical vis = optical(PORT21);
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
