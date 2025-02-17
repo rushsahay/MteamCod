@@ -95,7 +95,7 @@ void contakeStop(){
 bool runWallStakeRoutine=false;
 int wallStakeCount = 0;
 void wallStakeLoad(){
-  wallStake.spinToPosition(155, degrees);
+  wallStake.spinToPosition(115, degrees);
   runWallStakeRoutine=false;
 }
 void wallStakeRest(){
@@ -307,33 +307,8 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 //FROM OTHER GIT FILES
-setAutonSpeeds();
-mogomech.set(false);
-Drivetrain.setDriveVelocity(30.5, percent);
-  backwardDrive(4.1);
-  wait(1.5, sec);
-  mogomech.set(true);
-  wait(0.4, sec);
-  contakeForward();
-  wait(1, sec);
-  turnRight(1.2);
-  wait(1.5, sec);
-  forwardDrive(2.3);
-  wait(1.5,sec);
-  turnLeft(2.2);
-  wait(0.8,sec);
-  intakePiston.set(true);
-  forwardDrive(5.2);
-  wait(2.5,sec);
-  intakePiston.set(false);
-  forwardDrive(0.4);
-  wait(0.7,sec);
-  Drivetrain.setDriveVelocity(50, percent);
-  backwardDrive(3.5);
-  wait(1.2,sec);
-  turnLeft(1);
-  wait(1,sec);
-  forwardDrive(2);
+
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -349,7 +324,6 @@ Drivetrain.setDriveVelocity(30.5, percent);
 
 //forwardPID one tile is 24
 //backwardPID one tile is -26
-bool isRed = false;
 void usercontrol(void) {
   // User control code here, inside the loop
   // PIDEnabled = false;
@@ -385,13 +359,8 @@ void usercontrol(void) {
         wallStakeCount=0;
       }
     }
-    if((vis.hue()>2&&vis.hue()<30)||isRed){//180-210
-      isRed = true;
-      contakeStop();
-    }
     else{
       wallStakeCount=0;
-      isRed = false;
     }
 
      wait(20, msec);
