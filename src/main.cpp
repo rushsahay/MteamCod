@@ -324,6 +324,8 @@ void autonomous(void) {
 
 //forwardPID one tile is 24
 //backwardPID one tile is -26
+bool isRed = false;
+int colorSortCount = 0;
 void usercontrol(void) {
   // User control code here, inside the loop
   // PIDEnabled = false;
@@ -361,7 +363,20 @@ void usercontrol(void) {
     }
     else{
       wallStakeCount=0;
+      
     }
+    if((vis.hue()>2&&vis.hue()<30)){//180-210
+      isRed = true;
+      
+    }
+    if(isRed){colorSortCount++;}
+    if(isRed && colorSortCount>3){
+      contakeStop();
+    }
+    if(colorSortCount > 10){
+      isRed=false;
+    }
+    
 
      wait(20, msec);
   }
