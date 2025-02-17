@@ -307,8 +307,59 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
 //FROM OTHER GIT FILES
-
-
+// setAutonSpeeds();
+//   mogomech.set(false);
+//   Drivetrain.setDriveVelocity(25, percent);
+//   backwardDrive(5.1);
+//   wait(2, sec);
+//   Drivetrain.setDriveVelocity(40, percent);
+//   backwardDrive(0.3);
+//   wait(0.6, sec);
+//   mogomech.set(true);
+//   wait(1, sec);
+//   contakeForward();
+//   wait(1, sec);
+//   forwardDrive(0.1);
+//   wait(0.1, sec);
+//   backwardDrive(0.1);
+//   wait(0.1, sec);
+//   turnLeft(1.4);
+//   wait(1.5, sec);
+//   forwardDrive(2.3);
+//   wait(2, sec);
+//   backwardDrive(1.2);
+//   wait(0.8,sec);
+//   turnLeft(2.8);
+//   wait(2, sec);
+//   contakeStop();
+//   forwardDrive(2.4); 
+setAutonSpeeds();
+mogomech.set(false);
+Drivetrain.setDriveVelocity(30.5, percent);
+  backwardDrive(4.1);
+  wait(1.5, sec);
+  mogomech.set(true);
+  wait(0.4, sec);
+  contakeForward();
+  wait(1, sec);
+  turnLeft(1.2);
+  wait(1.5, sec);
+  forwardDrive(2.3);
+  wait(1.5,sec);
+  turnRight(2.2);
+  wait(0.8,sec);
+  intakePiston.set(true);
+  forwardDrive(5.2);
+  wait(2.5,sec);
+  intakePiston.set(false);
+  forwardDrive(0.4);
+  wait(0.7,sec);
+  Drivetrain.setDriveVelocity(50, percent);
+  backwardDrive(3.5);
+  wait(1.2,sec);
+  turnRight(1);
+  wait(1,sec);
+  forwardDrive(2);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -365,15 +416,15 @@ void usercontrol(void) {
       wallStakeCount=0;
       
     }
-    if((vis.hue()>2&&vis.hue()<30)){//180-210
+    if((vis.hue()>2&&vis.hue()<30) && !isRed){//180-210
       isRed = true;
       
     }
     if(isRed){colorSortCount++;}
-    if(isRed && colorSortCount>3){
+    if(isRed && colorSortCount>4){
       contakeStop();
     }
-    if(colorSortCount > 10){
+    if(colorSortCount >15){
       isRed=false;
     }
     
