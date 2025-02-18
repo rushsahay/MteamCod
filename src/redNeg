@@ -40,8 +40,8 @@ Drivetrain.setDriveVelocity(30.5, percent);
   wait(1.1,sec);
   forwardDrive(2.5); //
 
-  //forwardDrive(2); //skips alliance ring
-  //wait(0.7,sec);
-  //turnLeft(1.7);
-  //wait(0.9,sec);
-  //forwardDrive(2.5); //
+  // forwardDrive(2); //skips alliance ring
+  // wait(0.7,sec);
+  // turnLeft(1.7);
+  // wait(0.9,sec);
+  // forwardDrive(2.6); //
