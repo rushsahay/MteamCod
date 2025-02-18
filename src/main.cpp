@@ -103,7 +103,7 @@ void wallStakeRest(){
   runWallStakeRoutine=false;
 }
 void wallStakeScore(){
-  wallStake.spinToPosition(635, degrees);
+  wallStake.spinToPosition(740, degrees);
 }
 
 void wallStakeFunction(){
