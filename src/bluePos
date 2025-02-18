@@ -1,0 +1,64 @@
+setAutonSpeeds();
+mogomech.set(false);
+Drivetrain.setDriveVelocity(30.5, percent);
+backwardDrive(4.6);
+wait(1.5, sec);
+mogomech.set(true);
+wait(0.4, sec);
+contakeForward();
+wait(1, sec);
+turnRight(1);
+wait(1.25, sec);
+conveyor.stop();
+forwardDrive(2.3);
+wait(1,sec);
+conveyor.spin(fwd);
+wait(0.7,sec);
+
+// turnLeft(1.9); // gets alliance ring
+// wait(0.75,sec);
+// intakePiston.set(true);
+// conveyor.stop();
+// forwardDrive(5.2);
+// wait(2.5,sec);
+// intakePiston.set(false);
+// conveyor.spin(fwd);
+// wait(0.3,sec);
+// Drivetrain.setDriveVelocity(50, percent);
+
+// backwardDrive(3); //touches tower AFTER ALLIANCE RING
+// wait(1,sec);
+// turnLeft(1);
+// wait(1,sec);
+// forwardDrive(2); // 
+
+// backwardDrive(3); //sets up for third stake AFTER ALLIANCE RING
+// wait(1,sec);
+// turnLeft(1);
+// wait(1,sec);
+// mogomech.set(false);
+// backwardDrive(3.2);
+// wait(1,sec);
+// turnRight(1.5);
+// wait(1.2,sec);
+// backwardDrive(3);
+
+
+Drivetrain.setDriveVelocity(50, percent); // sets up for third stake NO ALLIANCE RING
+conveyor.stop();
+forwardDrive(3);
+wait(0.8,sec);
+turnLeft(1.2);
+wait(0.9,sec);
+forwardDrive(2);
+wait(0.5,sec);
+mogomech.set(false);
+arm_up_down();
+forwardDrive(3);
+wait(1,sec);
+conveyor.spin(fwd);
+turnLeft(2);
+wait(1.2,sec);
+forwardDrive(7);
+wait(1,sec);
+turnLeft(1.6);
