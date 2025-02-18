@@ -20,9 +20,10 @@ Drivetrain.setDriveVelocity(30.5, percent);
   wait(0.7,sec);
   forwardDrive(0.9);
   wait(1.4,sec);
-  turnLeft(1.65);
+  turnLeft(1.65); 
   wait(0.95,sec);
-  intakePiston.set(true);
+
+  intakePiston.set(true); //gets the alliance ring
   forwardDrive(5);
   wait(1.3,sec);
   intakePiston.set(false);
@@ -31,4 +32,10 @@ Drivetrain.setDriveVelocity(30.5, percent);
   wait(0.7,sec);
   turnLeft(1.7);
   wait(0.9,sec);
-  forwardDrive(2);
+  forwardDrive(2); //
+
+  //forwardDrive(2); //skips alliance ring
+  //wait(0.7,sec);
+  //turnLeft(1.7);
+  //wait(0.9,sec);
+  //forwardDrive(2); //
