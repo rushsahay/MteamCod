@@ -1,0 +1,18 @@
+for driver:
+
+//before while loop
+bool isRed = false; 
+int colorSortCount = 0;
+
+//in while loop
+    if((vis.hue()>2&&vis.hue()<30) && !isRed){//180-210
+      isRed = true;
+      
+    }
+    if(isRed){colorSortCount++;}
+    if(isRed && colorSortCount>4){
+      contakeStop();
+    }
+    if(colorSortCount >15){
+      isRed=false;
+    }
