@@ -1,27 +1,41 @@
 setAutonSpeeds();
 mogomech.set(false);
 Drivetrain.setDriveVelocity(30.5, percent);
-  backwardDrive(4.1);
+  backwardDrive(4.6);
   wait(1.5, sec);
   mogomech.set(true);
   wait(0.5, sec);
   contakeForward();
-  wait(1, sec);
+  wait(0.5, sec);
   turnLeft(1.9);
-  wait(1.2, sec);
+  wait(0.9, sec);
   Drivetrain.setDriveVelocity(50, percent);
-  forwardDrive(2.3);
-  wait(2, sec);
-  // turnRight(0.1);
-  // wait(0.2,sec);
-  // forwardDrive(0.8);
-  // wait(0.8,sec);
-  backwardDrive(0.7);
-  wait(0.3,sec);
-  turnRight(1.3);
-  wait(0.8,sec);
-  forwardDrive(0.6);
+  forwardDrive(1.7);
+  wait(1.5, sec);
+  Drivetrain.setStopping(coast);
+  backwardDrive(0.4);
+  wait(0.4,sec);
+  Drivetrain.setStopping(brake);
+  turnRight(1.1);
+  wait(0.7,sec);
+  forwardDrive(0.9);
+  wait(1.4,sec);
+  turnRight(1.65); 
+  wait(0.95,sec);
+
+  intakePiston.set(true); //gets the alliance ring
+  forwardDrive(5);
+  wait(1.3,sec);
+  intakePiston.set(false);
   wait(0.5,sec);
-  turnRight(2);
-  wait(1.2,sec);
-  forwardDrive(2.5);
+  backwardDrive(3);
+  wait(0.7,sec);
+  turnRight(1.7);
+  wait(0.9,sec);
+  forwardDrive(2); //
+
+  //forwardDrive(2); //skips alliance ring
+  //wait(0.7,sec);
+  //turnRight(1.7);
+  //wait(0.9,sec);
+  //forwardDrive(2); //
