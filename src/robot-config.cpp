@@ -28,6 +28,7 @@ controller Controller1 = controller(primary);
 // rotation rightRotate = rotation(PORT6,false);
 // rotation leftRotate = rotation(PORT7, true);
 inertial inert = inertial(PORT1);
+rotation conveyorRotational = rotation(PORT2, true);
 motor leftMotorA = motor(PORT11, ratio6_1, true);//
 motor leftMotorB = motor(PORT12, ratio6_1, true);//
 motor leftMotorC = motor(PORT14, ratio6_1, true);//
@@ -53,6 +54,10 @@ bool RemoteControlCodeEnabled = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
+double exponentialControl(double input){
+  return 0.01 * input * fabs(input);
+}
+
 // define a task that will handle monitoring inputs from Controller1
 int rc_auto_loop_function_Controller1() {
   // process the controller input every 20 milliseconds
@@ -61,8 +66,8 @@ int rc_auto_loop_function_Controller1() {
       // calculate the drivetrain motor velocities from the controller joystick axies
       // left = Axis3 + Axis1
       // right = Axis3 - Axis1
-      int drivetrainLeftSideSpeed = Controller1.Axis3.position() + Controller1.Axis1.position();
-      int drivetrainRightSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
+      int drivetrainLeftSideSpeed = exponentialControl(Controller1.Axis3.position()) + exponentialControl(Controller1.Axis1.position());
+      int drivetrainRightSideSpeed = exponentialControl(Controller1.Axis3.position()) - exponentialControl(Controller1.Axis1.position());
       
       // check if the value is inside of the deadband range
       if (drivetrainLeftSideSpeed < 3 && drivetrainLeftSideSpeed > -3) {
