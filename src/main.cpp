@@ -102,8 +102,12 @@ void wallStakeRest(){
   wallStake.spinToPosition(0, degrees);
   runWallStakeRoutine=false;
 }
+void wallStakeScoreThread(){
+  wallStake.spinToPosition(740, degrees); 
+}
+
 void wallStakeScore(){
-  wallStake.spinToPosition(740, degrees);
+  vex::thread t1(wallStakeScoreThread);
 }
 
 void wallStakeFunction(){
