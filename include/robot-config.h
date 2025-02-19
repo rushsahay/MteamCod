@@ -39,9 +39,11 @@ extern drivetrain Drivetrain;
  extern motor_group contake;
   extern motor wallStake;
 extern optical vis;
+extern rotation conveyorRotational;
   
  // extern rotation parallelRotational;
  // extern rotation perpendicularRotational;
  extern inertial inert;
+ double exponentialControl();
  int rc_auto_loop_function_Controller1();
 void vexcodeInit(void);
