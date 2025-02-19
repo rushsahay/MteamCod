@@ -1,4 +1,4 @@
-setAutonSpeeds();
+  setAutonSpeeds();
 mogomech.set(false);
 
   contakeForward();
@@ -24,7 +24,7 @@ mogomech.set(false);
   forwardDrive(3.7);
   wait(1,sec);
   conveyor.stop();
-  turnRight(1.21);
+  turnRight(1.12);
   wait(0.8,sec);
   conveyor.spin(fwd);
   forwardDrive(4.2);
@@ -48,11 +48,12 @@ mogomech.set(false);
   conveyor.stop();
   wait(0.1, sec); 
 
-  forwardDrive(3.2);
+  forwardDrive(2.8);
   wait(1.2,sec);
-  turnRight(2.195);
+  turnRight(2.13);
   wait(1.7,sec);
   backwardDrive(7.5);
+  contakeForward();
   wait(2.9,sec);
   Drivetrain.setDriveVelocity(20, percent);
   backwardDrive(1.5);
@@ -60,9 +61,9 @@ mogomech.set(false);
   switchMogo();//clamp
   Drivetrain.setDriveVelocity(35, percent);
   wait(1,sec);
-  turnLeft(1.22);//
+  turnLeft(1.02);//
   wait(1,sec);
-  conveyor.stop();
+  // conveyor.stop();
   forwardDrive(2.8);
   wait(1,sec);
   turnLeft(1.42);
@@ -71,7 +72,7 @@ mogomech.set(false);
   forwardDrive(3.2);
   wait(1,sec);
   conveyor.stop();
-  turnLeft(1.45);
+  turnLeft(1.40);
   wait(1,sec);
   conveyor.spin(fwd);
   forwardDrive(4.2);
@@ -81,6 +82,10 @@ mogomech.set(false);
   conveyor.spin(fwd);
   forwardDrive(1);
   wait(1,sec);
+  conveyor.spin(reverse);
+  wait(0.3,sec);
+  conveyor.spin(fwd);
+  wait(0.3,sec);
   turnLeft(1.8);
   wait(1.3,sec);
   backwardDrive(2.5);
@@ -88,3 +93,120 @@ mogomech.set(false);
   conveyor.spin(reverse);
   wait(0.2,sec);
   conveyor.spin(fwd);
+  wait(0.2,sec);
+  switchMogo();
+  wait(0.2,sec);
+  forwardDrive(1.2);
+
+
+//   setAutonSpeeds();
+// mogomech.set(false);
+
+//   contakeForward();
+//   wait(0.8,sec);
+//   forwardDrive(1.5);
+//   wait(0.8,sec);
+//   turnLeft(1.25);
+//   wait(1,sec);
+//   Drivetrain.setDriveVelocity(20, percent);
+//   backwardDrive(3.1);
+//   wait(1.5,sec);
+//   switchMogo(); //clamp
+//   wait(0.2,sec);
+//   Drivetrain.setDriveVelocity(35,percent);
+//   turnRight(1.25);
+//   wait(0.9,sec);
+//   conveyor.stop();
+//   forwardDrive(3.7);
+//   wait(1,sec);
+//   turnRight(1.3);
+//   wait(0.8,sec);
+//   conveyor.spin(fwd);
+//   forwardDrive(3.7);
+//   wait(1,sec);
+//   conveyor.stop();
+//   turnRight(0.8);
+//   wait(0.8,sec);
+//   conveyor.spin(fwd);
+//   forwardDrive(4.2);
+//   wait(2,sec);
+//   // conveyor.stop();
+//   // wait(0.3,sec);
+//   // conveyor.spin(fwd);
+//   forwardDrive(1);
+//   wait(1,sec);
+//   turnRight(1.4);
+//   wait(1.3,sec);
+//   backwardDrive(2.5);
+//   wait(0.8,sec);
+//   conveyor.stop();
+//   wait(0.2,sec);
+//   conveyor.spin(fwd);
+//   switchMogo(); //release
+//   wait(0.1,sec);
+//   conveyor.spin(reverse);
+//   wait(0.1, sec);
+//   conveyor.stop();
+//   wait(0.1, sec); 
+
+//   forwardDrive(3.2);
+//   wait(1.2,sec);
+//   turnRight(1.8);
+//   wait(1.7,sec);
+//   backwardDrive(7.5);
+//   wait(2.9,sec);
+//   Drivetrain.setDriveVelocity(20, percent);
+//   backwardDrive(1.5);
+//   wait(0.28,sec);
+//   switchMogo();//clamp
+//   Drivetrain.setDriveVelocity(35, percent);
+//   wait(1,sec);
+//   turnLeft(0.95);//
+//   wait(1,sec);
+//   conveyor.stop();
+//   forwardDrive(2.8);
+//   wait(1,sec);
+//   turnLeft(1.2);
+//   wait(1,sec);
+//   conveyor.spin(fwd);
+//   forwardDrive(3.2);
+//   wait(1,sec);
+//   conveyor.stop();
+//   turnLeft(1.45);
+//   wait(1,sec);
+//   conveyor.spin(fwd);
+//   forwardDrive(4.2);
+//   wait(2,sec);
+//   conveyor.spin(reverse);
+//   wait(0.3,sec);
+//   conveyor.spin(fwd);
+//   forwardDrive(1);
+//   wait(1,sec);
+//   turnLeft(1.8);
+//   wait(1.3,sec);
+//   backwardDrive(2.5);
+//   wait(0.8,sec);
+//   conveyor.spin(reverse);
+//   wait(0.2,sec);
+//   conveyor.spin(fwd);
+//   forwardDrive(3.5);
+//   turnLeft(1.2);
+//   switchMogo();
+  // Drivetrain.setDriveVelocity(20,pct);
+  // forwardDrive(0.8);
+  // switchMogo();//clamp
+  // turnLeft(1.2);
+  // forwardDrive(2.6);
+  // wait(0.5,sec);
+  // switchMogo();//drop Mogo
+  // backwardDrive(2.6);
+  // turnRight(2.8);
+  // forwardDrive(2.4);
+  // wait(0.6,sec);
+  // Drivetrain.setDriveVelocity(20, pct);
+  // forwardDrive(0.6);
+  // switchMogo(); //clamp
+  // turnLeft(1.3);
+  // forwardDrive(1.8);
+  // switchMogo();//drop Mogo
+  // backwardDrive(0.7);
