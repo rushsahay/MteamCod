@@ -43,7 +43,7 @@ Drivetrain.setDriveVelocity(30.5, percent);
   // wait(1,sec);
   // backwardDrive(1.4);
   
-  Drivetrain.setDriveVelocity(50, percent); // sets up for third stake NO ALLIANCE RING
+  Drivetrain.setDriveVelocity(50, percent); // sets up for third stake NO ALLIANCE RING (clears corner)
   turnRight(0.95);
   wait(0.85,sec);
   conveyor.stop();
